@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Dashboard } from './dashboard';
+// Update the import path if the file is named 'admin-dashboard.component'
+import { Dashboard } from './admin-dashboard'
 
 describe('Dashboard', () => {
   let component: Dashboard;

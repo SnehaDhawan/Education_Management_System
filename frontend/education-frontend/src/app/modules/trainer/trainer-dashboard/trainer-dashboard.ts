@@ -5,8 +5,8 @@ import { Component } from '@angular/core';
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './dashboard.html',
-  styleUrl: './dashboard.css'
+  templateUrl: './trainer-dashboard.html',
+  styleUrl: './trainer-dashboard.css'
 })
 export class Dashboard {
 
