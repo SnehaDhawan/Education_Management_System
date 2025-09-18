@@ -2,6 +2,7 @@ package com.EduManage.Authentication.service;
 
 import com.EduManage.Authentication.dto.LoginRequest;
 import com.EduManage.Authentication.dto.LoginResponse;
+import com.EduManage.Authentication.entity.Admin;
 import com.EduManage.Authentication.repository.AdminRepository;
 import com.EduManage.Authentication.repository.StudentRepository;
 import com.EduManage.Authentication.repository.TrainerRepository;
@@ -32,11 +33,24 @@ public class AuthService {
         String password = request.getPassword();
 
         switch (role) {
+//            case "ADMIN":
+//                return adminRepo.findByEmailId(email)
+//                        .filter(a -> passwordEncoder.matches(password, a.getPassword()))
+//                        .map(a -> new LoginResponse(jwtUtil.generateToken(email, role), role))
+//                        .orElseThrow(() -> new RuntimeException("Invalid Admin credentials"));
+
             case "ADMIN":
-                return adminRepo.findByEmailId(email)
-                        .filter(a -> passwordEncoder.matches(password, a.getPassword()))
-                        .map(a -> new LoginResponse(jwtUtil.generateToken(email, role), role))
-                        .orElseThrow(() -> new RuntimeException("Invalid Admin credentials"));
+                Admin admin = adminRepo.findByEmailId(email)
+                        .orElseThrow(() -> new RuntimeException("Admin not found"));
+
+                if (admin.getPassword().equals(password)) {
+                    String token = jwtUtil.generateToken(email, role);
+                    return new LoginResponse(token, role);
+                } else {
+                    throw new RuntimeException("Invalid Admin credentials");
+                }
+
+
 
             case "STUDENT":
                 return studentRepo.findByEmail(email)

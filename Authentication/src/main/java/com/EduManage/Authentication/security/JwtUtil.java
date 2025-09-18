@@ -12,6 +12,9 @@ public class JwtUtil {
     private final String SECRET_KEY = "edumanage_secret_edumanage_secret_123456"; // must be 32+ chars
     private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
+
+
+
     public String generateToken(String email, String role) {
         return Jwts.builder()
                 .setSubject(email)
