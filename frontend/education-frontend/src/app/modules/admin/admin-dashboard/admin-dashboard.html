@@ -1,180 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Admin Dashboard</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-    }
-    .dashboard-container { display: flex; height: 100vh; }
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidenav">
+    <h3 class="logo">Admin Panel</h3>
+    <a (click)="showPage('dashboard')">Dashboard</a>
+    <a (click)="showPage('students')">Students</a>
+    <a (click)="showPage('trainers')">Trainers</a>
+    <a (click)="showPage('reports')">Reports</a>
+    <a (click)="showPage('settings')">Settings</a>
+  </div>
 
-    /* Sidebar */
-    .sidenav {
-      width: 220px;
-      background: #fff;
-      border-right: 1px solid #ddd;
-      padding-top: 20px;
-    }
-    .logo { text-align: center; font-size: 20px; font-weight: bold; color: #3f51b5; margin-bottom: 20px; }
-    .sidenav a { display: block; padding: 12px 20px; color: #333; text-decoration: none; cursor: pointer; }
-    .sidenav a:hover { background: #f0f0f0; color: #3f51b5; }
-
-    /* Main content */
-    .main { flex: 1; display: flex; flex-direction: column; }
-
-    /* Top Navbar */
-    .toolbar { display: flex; align-items: center; background: #3f51b5; color: white; padding: 10px 20px; }
-    .title { margin-left: 10px; font-size: 18px; font-weight: 500; }
-    .spacer { flex: 1; }
-    .toolbar button { background: transparent; border: none; color: white; font-size: 16px; cursor: pointer; }
-
-    /* Page Content */
-    .content { padding: 20px; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 20px; }
-    .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0px 3px 6px rgba(0,0,0,0.1); }
-    .card h3 { margin: 0 0 10px; color: #3f51b5; }
-
-    /* Forms */
-    .form-container {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
-      max-width: 500px;
-    }
-    .form-container h3 { margin-top: 0; color: #3f51b5; }
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-    .form-group input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; }
-    .form-container button {
-      background: #3f51b5; color: white; border: none;
-      padding: 10px 16px; border-radius: 6px; cursor: pointer;
-    }
-    .form-container button:hover { background: #32408f; }
-  </style>
-</head>
-<body>
-  <div class="dashboard-container">
-    <!-- Sidebar -->
-    <div class="sidenav">
-      <h3 class="logo">Admin Panel</h3>
-      <a onclick="showPage('dashboard')">Dashboard</a>
-      <a onclick="showPage('editStudent')">Edit Student</a>
-      <a onclick="showPage('editTrainer')">Edit Trainer</a>
-      <a onclick="showPage('reports')">Reports</a>
-      <a onclick="showPage('settings')">Settings</a>
+  <!-- Main Content -->
+  <div class="main">
+    <!-- Top Navbar -->
+    <div class="toolbar">
+      <span class="title">Admin Dashboard</span>
+      <div class="spacer"></div>
+      <button (click)="logout()">Logout</button>
     </div>
 
-    <!-- Main Content -->
-    <div class="main">
-      <!-- Top Navbar -->
-      <div class="toolbar">
-        <span class="title">Admin Dashboard</span>
-        <div class="spacer"></div>
-        <button onclick="logout()">Logout</button>
+    <!-- Page Content -->
+    <div class="content">
+      <!-- Dashboard Page -->
+      <div *ngIf="activePage === 'dashboard'">
+        <h2>Welcome, Admin 👋</h2>
+        <p>Here you can manage users, view reports, and update settings.</p>
+        <div class="cards">
+          <div class="card"><h3>Total Users</h3><p>{{ totalUsers }}</p></div>
+          <div class="card"><h3>Active Trainers</h3><p>{{ activeTrainers }}</p></div>
+          <div class="card"><h3>Reports</h3><p>{{ reports }}</p></div>
+        </div>
       </div>
 
-      <!-- Page Content -->
-      <div class="content">
-        <!-- Dashboard -->
-        <div id="dashboardPage">
-          <h2>Welcome, Admin 👋</h2>
-          <p>Here you can manage users, view reports, and update settings.</p>
-          <div class="cards">
-            <div class="card"><h3>Total Users</h3><p>120</p></div>
-            <div class="card"><h3>Active Trainers</h3><p>15</p></div>
-            <div class="card"><h3>Reports</h3><p>32</p></div>
-          </div>
-        </div>
+      <!-- Students Page -->
+      <div *ngIf="activePage === 'students'">
+        <h3>Student Section</h3>
+        <button class="add-btn" (click)="toggleStudentView('list')">Student List</button>
+        <button class="add-btn" (click)="toggleStudentView('create')">Add Student</button>
 
-        <!-- Edit Student -->
-        <div id="editStudentPage" style="display:none;">
-          <div class="form-container">
-            <h3>Edit Student</h3>
-            <div class="form-group">
-              <label>Student Name</label>
-              <input type="text" id="studentName" placeholder="Enter student name">
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" id="studentEmail" placeholder="Enter student email">
-            </div>
-            <div class="form-group">
-              <label>Course</label>
-              <input type="text" id="studentCourse" placeholder="Enter course">
-            </div>
-            <button onclick="saveStudent()">Save Student</button>
-          </div>
+        <div *ngIf="studentView === 'list'">
+          <app-student-list></app-student-list>
         </div>
+        <div *ngIf="studentView === 'create'">
+          <app-student-create></app-student-create>
+        </div>
+      </div>
 
-        <!-- Edit Trainer -->
-        <div id="editTrainerPage" style="display:none;">
-          <div class="form-container">
-            <h3>Edit Trainer</h3>
-            <div class="form-group">
-              <label>Trainer Name</label>
-              <input type="text" id="trainerName" placeholder="Enter trainer name">
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" id="trainerEmail" placeholder="Enter trainer email">
-            </div>
-            <div class="form-group">
-              <label>Expertise</label>
-              <input type="text" id="trainerExpertise" placeholder="Enter expertise">
-            </div>
-            <button onclick="saveTrainer()">Save Trainer</button>
-          </div>
-        </div>
+      <!-- Trainers Page -->
+      <div *ngIf="activePage === 'trainers'">
+        <h3>Trainer Section</h3>
+        <p>Trainer management goes here.</p>
+      </div>
 
-        <!-- Reports -->
-        <div id="reportsPage" style="display:none;">
-          <h3>Reports Page</h3>
-          <p>Reports content goes here.</p>
-        </div>
+      <!-- Reports Page -->
+      <div *ngIf="activePage === 'reports'">
+        <h3>Reports Section</h3>
+        <p>Reports data goes here.</p>
+      </div>
 
-        <!-- Settings -->
-        <div id="settingsPage" style="display:none;">
-          <h3>Settings Page</h3>
-          <p>Settings content goes here.</p>
-        </div>
+      <!-- Settings Page -->
+      <div *ngIf="activePage === 'settings'">
+        <h3>Settings Section</h3>
+        <p>Settings configuration goes here.</p>
       </div>
     </div>
   </div>
-
-  <script>
-    function logout() {
-      alert("Admin logged out!");
-    }
-
-    function showPage(page) {
-      // Hide all pages
-      document.getElementById("dashboardPage").style.display = "none";
-      document.getElementById("editStudentPage").style.display = "none";
-      document.getElementById("editTrainerPage").style.display = "none";
-      document.getElementById("reportsPage").style.display = "none";
-      document.getElementById("settingsPage").style.display = "none";
-
-      // Show selected page
-      document.getElementById(page + "Page").style.display = "block";
-    }
-
-    function saveStudent() {
-      let name = document.getElementById("studentName").value;
-      let email = document.getElementById("studentEmail").value;
-      let course = document.getElementById("studentCourse").value;
-      alert(`Student Updated:\nName: ${name}\nEmail: ${email}\nCourse: ${course}`);
-    }
-
-    function saveTrainer() {
-      let name = document.getElementById("trainerName").value;
-      let email = document.getElementById("trainerEmail").value;
-      let expertise = document.getElementById("trainerExpertise").value;
-      alert(`Trainer Updated:\nName: ${name}\nEmail: ${email}\nExpertise: ${expertise}`);
-    }
-  </script>
-</body>
-</html>
+</div>

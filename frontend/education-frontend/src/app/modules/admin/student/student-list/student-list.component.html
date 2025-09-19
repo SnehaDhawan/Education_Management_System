@@ -1,0 +1,35 @@
+<div class="student-list-container">
+  <h2>Student List</h2>
+  <table class="student-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Course</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of students; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ s.name }}</td>
+        <td>{{ s.email }}</td>
+        <td>{{ s.course }}</td>
+        <td>
+          <button class="btn edit-btn" (click)="editStudent(s)">Edit</button>
+          <button class="btn delete-btn" (click)="deleteStudent(s.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-student-create
+    *ngIf="showForm"
+    [student]="selectedStudent"
+    (formClosed)="closeForm($event)"
+  >
+  </app-student-create>
+</div>
