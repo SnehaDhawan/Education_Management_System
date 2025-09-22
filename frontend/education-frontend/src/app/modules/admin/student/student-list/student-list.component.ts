@@ -2,21 +2,39 @@ import { Component } from '@angular/core';
 import { Student } from '../../../../models/interface';
 import { StudentCreateComponent } from "../student-create/student-create.component";
 import { CommonModule } from '@angular/common';
+import { StudentService } from '../../../../services/student.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-student-list',
-  imports: [StudentCreateComponent,CommonModule],
+  standalone :true,
+  imports: [StudentCreateComponent,CommonModule,FormsModule],
   templateUrl: './student-list.component.html',
-  styleUrl: './student-list.component.css'
+ styleUrls: ['./student-list.component.css']
 })
 export class StudentListComponent {
-students: Student[] = [
-    { id: 1, name: 'John Doe', email: 'john@example.com', course: 'Angular' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', course: 'Java' }
-  ];
-
+constructor(private studentService: StudentService) {}
+ students: Student[] = [];
   showForm = false;
-  selectedStudent: Student | null = null;
+selectedStudent: Student | null = null;
+
+ ngOnInit(): void {
+    this.loadStudents();
+  }
+
+  // ✅ Call service to get students
+  loadStudents(): void {
+    this.studentService.getAllStudents().subscribe({
+      next: (data) => {
+        this.students = data;
+      },
+      error: (err) => {
+        console.error('Error loading students:', err);
+      }
+    });
+  }
+
+
 
 
   editStudent(student: Student) {
@@ -24,25 +42,35 @@ students: Student[] = [
     this.showForm = true;
   }
 
-  deleteStudent(id: number) {
-    this.students = this.students.filter(s => s.id !== id);
-  }
+deleteStudent(studentId: string) {
+  debugger
+  this.studentService.deleteStudent(studentId).subscribe({
+    next: () => {
+      this.students = this.students.filter(s => s.studentId !== studentId);
+      alert('Student deleted successfully!');
+    },
+    error: (err) => console.error('Failed to delete student:', err)
+  });
+}
+
 
   closeForm(updatedStudent: Student | null) {
     if (updatedStudent) {
-      if (updatedStudent.id) {
-        // update
-        const index = this.students.findIndex(s => s.id === updatedStudent.id);
-        if (index !== -1) this.students[index] = updatedStudent;
+      if (updatedStudent.studentId) {
+        // ✅ update
+        const index = this.students.findIndex(s => s.studentId === updatedStudent.studentId);
+        if (index !== -1) {
+          this.students[index] = updatedStudent;
+        }
       } else {
-        // create new
-        const newId =
-          this.students.length > 0
-            ? Math.max(...this.students.map(s => s.id)) + 1
-            : 1;
-        this.students.push({ ...updatedStudent, id: newId });
+        const newId = `S${Date.now()}`; // Use timestamp to create a unique string ID
+         this.students.push({ ...updatedStudent, studentId: newId });
       }
     }
+
+
+
+    // ✅ always reset form
     this.showForm = false;
     this.selectedStudent = null;
   }

@@ -15,8 +15,9 @@ public class Student {
     @Column(name = "id", nullable = false)
     private Integer id;  // Primary key
 
-    @Column(name = "student_id", nullable = false, unique = true)
-    private Integer studentId;  // Business identifier, unique
+
+    @Column(name = "student_id", unique = true)
+    private String studentId;  // Business identifier, unique
 
     @Column(name = "student_name", nullable = false, length = 255)
     private String studentName;

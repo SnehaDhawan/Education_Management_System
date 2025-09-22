@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class StudentRequest {
+public class TrainerRequest {
 
-    @JsonProperty("studentId")
-    private String studentId;
+    @JsonProperty("trainerId")
+    private String trainerId;
 
-    @JsonProperty("studentName")
-    private String studentName;
+    @JsonProperty("trainerName")
+    private String trainerName;
 
     @JsonProperty("email")
     private String email;
@@ -21,10 +21,6 @@ public class StudentRequest {
     @JsonProperty("mobileNo")
     private Long mobileNo;
 
-    @JsonProperty("class")
-    private String studentClass;
-
-
-
-
+    @JsonProperty("specialization")
+    private String specialization;
 }

@@ -25,9 +25,18 @@
         <h2>Welcome, Admin 👋</h2>
         <p>Here you can manage users, view reports, and update settings.</p>
         <div class="cards">
-          <div class="card"><h3>Total Users</h3><p>{{ totalUsers }}</p></div>
-          <div class="card"><h3>Active Trainers</h3><p>{{ activeTrainers }}</p></div>
-          <div class="card"><h3>Reports</h3><p>{{ reports }}</p></div>
+          <div class="card">
+            <h3>Total Users</h3>
+            <p>{{ totalUsers }}</p>
+          </div>
+          <div class="card">
+            <h3>Active Trainers</h3>
+            <p>{{ activeTrainers }}</p>
+          </div>
+          <div class="card">
+            <h3>Reports</h3>
+            <p>{{ reports }}</p>
+          </div>
         </div>
       </div>
 
@@ -45,11 +54,26 @@
         </div>
       </div>
 
-      <!-- Trainers Page -->
+
+
       <div *ngIf="activePage === 'trainers'">
         <h3>Trainer Section</h3>
-        <p>Trainer management goes here.</p>
+
+        <!-- Toggle buttons -->
+        <button class="add-btn" (click)="toggleTrainerView('list')">Trainer List</button>
+        <button class="add-btn" (click)="toggleTrainerView('create')">Add Trainer</button>
+
+        <!-- Trainer List -->
+        <div *ngIf="trainerView === 'list'">
+          <app-trainer-list></app-trainer-list>
+        </div>
+
+        <!-- Trainer Create -->
+        <div *ngIf="trainerView === 'create'">
+          <app-trainer-create (formClosed)="toggleTrainerView('list')"></app-trainer-create>
+        </div>
       </div>
+
 
       <!-- Reports Page -->
       <div *ngIf="activePage === 'reports'">

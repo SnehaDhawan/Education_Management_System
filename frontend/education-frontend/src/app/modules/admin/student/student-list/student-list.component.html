@@ -6,19 +6,21 @@
         <th>#</th>
         <th>Name</th>
         <th>Email</th>
-        <th>Course</th>
+        <th>Mobile No</th>
+        <th>Class</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let s of students; let i = index">
         <td>{{ i + 1 }}</td>
-        <td>{{ s.name }}</td>
+        <td>{{ s.studentName }}</td>
         <td>{{ s.email }}</td>
-        <td>{{ s.course }}</td>
+        <td>{{ s.mobileNo }}</td>
+        <td>{{ s.class }}</td>
         <td>
           <button class="btn edit-btn" (click)="editStudent(s)">Edit</button>
-          <button class="btn delete-btn" (click)="deleteStudent(s.id)">
+          <button class="btn delete-btn" (click)="deleteStudent(s.studentId)">
             Delete
           </button>
         </td>
@@ -26,10 +28,10 @@
     </tbody>
   </table>
 
-  <app-student-create
-    *ngIf="showForm"
-    [student]="selectedStudent"
-    (formClosed)="closeForm($event)"
-  >
-  </app-student-create>
+ <app-student-create
+  *ngIf="showForm"
+  [selectedStudent]="selectedStudent"
+  (formClosed)="closeForm($event)">
+</app-student-create>
 </div>
+

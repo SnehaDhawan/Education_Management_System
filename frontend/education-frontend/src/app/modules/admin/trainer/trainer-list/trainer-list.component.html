@@ -1,0 +1,38 @@
+<div class="trainer-list-container">
+  <h2>Trainer List</h2>
+  <table class="trainer-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile No</th>
+        <th>Specialization</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of trainers; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ t.trainerName }}</td>
+        <td>{{ t.email }}</td>
+        <td>{{ t.mobileNo }}</td>
+        <td>{{ t.specialization }}</td>
+        <td>
+          <button class="btn edit-btn" (click)="editTrainer(t)">Edit</button>
+          <button class="btn delete-btn" (click)="deleteTrainer(t.trainerId)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ✅ Show Trainer Create/Update Form -->
+  <app-trainer-create
+    *ngIf="showForm"
+    [selectedTrainer]="selectedTrainer"
+    (formClosed)="closeForm($event)">
+  </app-trainer-create>
+</div>
+
