@@ -1,3 +1,17 @@
+export interface LoginRequest {
+email: string;
+password: string;
+role: string; // "ADMIN" | "TRAINER" | "STUDENT"
+}
+
+
+export interface LoginResponse {
+token: string; // JWT token (optional if you use HttpOnly cookie)
+role: string; // returned role (e.g. "ADMIN")
+}
+
+
+
 export interface Student {
   studentId: string;
   studentName: string;
@@ -15,3 +29,6 @@ export interface Trainer {
   mobileNo: number;
   specialization: string;
 }
+
+
+

@@ -23,12 +23,12 @@ public class TrainerController {
 
     @PostMapping("/create")
     public ResponseEntity<Map<String, String>> createTrainer(@RequestBody TrainerRequest trainerRequest) {
-        trainerService.saveTrainer(trainerRequest);
+        String generatedId = trainerService.saveTrainer(trainerRequest); // return code from service
         Map<String, String> response = new HashMap<>();
         response.put("message", "Trainer created successfully");
+        response.put("trainerId", generatedId);  // return generated code
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
     @GetMapping("/getAll")
     public ResponseEntity<List<Trainer>> getTrainerList(){
         List<Trainer> trainerList = trainerService.getAllTrainers();

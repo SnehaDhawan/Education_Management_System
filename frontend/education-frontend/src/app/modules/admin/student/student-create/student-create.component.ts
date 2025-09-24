@@ -37,8 +37,9 @@ ngOnInit(): void {
 
 
 onSubmit(form: NgForm) {
+  debugger
   if (form.valid) {
-    if (this.formStudent.studentId) {
+    if(this.formStudent.studentId) {
       // ✅ Update existing student
       this.studentService.updateStudent(this.formStudent).subscribe({
         next: (res: any) => {
@@ -51,8 +52,10 @@ onSubmit(form: NgForm) {
           alert('Failed to update student.');
         },
       });
-    } else {
-      // ✅ Create new student
+    } 
+    
+    else {
+     debugger
       this.studentService.createStudent(this.formStudent).subscribe({
         next: (res: any) => {
           console.log('Student created successfully:', res);

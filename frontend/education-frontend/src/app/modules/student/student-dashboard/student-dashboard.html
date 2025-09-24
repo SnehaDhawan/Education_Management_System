@@ -1,1 +1,129 @@
-<p>Student dashboard works!</p>
+<div class="dashboard">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">EduManage</h2>
+    <ul class="menu">
+      <li (click)="activeTab='overview'" [class.active]="activeTab==='overview'">Dashboard</li>
+      <li (click)="activeTab='batches'" [class.active]="activeTab==='batches'">My Batches</li>
+      <li (click)="activeTab='attendance'" [class.active]="activeTab==='attendance'">Attendance</li>
+      <li (click)="activeTab='tasks'" [class.active]="activeTab==='tasks'">Tasks</li>
+      <li (click)="activeTab='grades'" [class.active]="activeTab==='grades'">Grades</li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main">
+
+    <!-- Header -->
+    <header class="header">
+      <h2>Student Dashboard</h2>
+      <div class="user-info">
+        <span>👩‍🎓 Student</span>
+        <button class="logout-btn">Logout</button>
+      </div>
+    </header>
+
+    <!-- Overview Section -->
+    <section *ngIf="activeTab==='overview'" class="overview">
+      <div class="card">
+        <h3>My Batches</h3>
+        <p>{{ myBatches.length }}</p>
+      </div>
+      <div class="card">
+        <h3>Attendance (%)</h3>
+        <p>{{ attendancePercent }}%</p>
+      </div>
+      <div class="card">
+        <h3>Pending Tasks</h3>
+        <p>{{ pendingTasks }}</p>
+      </div>
+    </section>
+
+    <!-- Batches -->
+    <section *ngIf="activeTab==='batches'" class="content">
+      <h3>Assigned Batches</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Batch Name</th>
+            <th>Trainer</th>
+            <th>Timing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let batch of myBatches">
+            <td>{{ batch.name }}</td>
+            <td>{{ batch.trainer }}</td>
+            <td>{{ batch.time }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Attendance -->
+    <section *ngIf="activeTab==='attendance'" class="content">
+      <h3>My Attendance</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of attendanceRecords">
+            <td>{{ record.date }}</td>
+            <td [class.present]="record.status==='Present'" [class.absent]="record.status==='Absent'">{{ record.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Tasks -->
+    <section *ngIf="activeTab==='tasks'" class="content">
+      <h3>My Tasks</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Status</th>
+            <th>Submit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of taskList">
+            <td>{{ task.title }}</td>
+            <td>{{ task.status }}</td>
+            <td>
+              <input type="file" (change)="onFileSelected($event, task)" />
+              <button class="btn blue" (click)="submitTask(task)">Submit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Grades -->
+    <section *ngIf="activeTab==='grades'" class="content">
+      <h3>My Grades</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Grade</th>
+            <th>Feedback</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let grade of grades">
+            <td>{{ grade.task }}</td>
+            <td>{{ grade.score }}</td>
+            <td>{{ grade.feedback }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+</div>

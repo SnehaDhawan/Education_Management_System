@@ -4,6 +4,8 @@ package com.EduManage.Admin.service;
 import com.EduManage.Admin.domain.entity.Trainer;
 import com.EduManage.Admin.domain.request.TrainerRequest;
 import com.EduManage.Admin.repository.TrainerRepository;
+import com.EduManage.Admin.utility.CodeGenerate;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,18 +17,24 @@ public class TrainerService {
     @Autowired
     private TrainerRepository trainerRepository;
 
+    @Autowired
+    private CodeGenerate codeGenerate;
 
-    public void saveTrainer(TrainerRequest trainerRequest) {
+
+    @Transactional
+    public String saveTrainer(TrainerRequest trainerRequest) {
         Trainer trainer = new Trainer();
-        trainer.setTrainerId("121212");
         trainer.setTrainerName(trainerRequest.getTrainerName());
         trainer.setEmail(trainerRequest.getEmail());
-        trainer.setPassword(trainerRequest.getPassword()); // TODO: Encrypt later
+        trainer.setPassword(trainerRequest.getPassword());
         trainer.setMobileNo(trainerRequest.getMobileNo());
         trainer.setSpecialization(trainerRequest.getSpecialization());
-
+        String generatedCode = codeGenerate.generateCode("trainers", "trainer_id", "TRN");
+        trainer.setTrainerId(generatedCode);
         trainerRepository.save(trainer);
+        return generatedCode;
     }
+
 
     // ✅ Get All Trainers
     public List<Trainer> getAllTrainers() {

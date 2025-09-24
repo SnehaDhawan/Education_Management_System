@@ -23,9 +23,10 @@ public class StudentController {
 
     @PostMapping("/create")
     public ResponseEntity<Map<String, String>> createStudent(@RequestBody StudentRequest studentRequest) {
-        studentService.saveStudent(studentRequest);
+        String generatedId = studentService.saveStudent(studentRequest); // return code from service
         Map<String, String> response = new HashMap<>();
         response.put("message", "Student created successfully");
+        response.put("studentId", generatedId);  // also return the generated code if needed
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -36,8 +37,6 @@ public class StudentController {
         return new ResponseEntity<>(studentList, HttpStatus.OK);
     }
 
-
-    // Update a student
     @PutMapping("/update/{id}")
     public ResponseEntity<Student> updateStudent(@PathVariable String  id, @RequestBody Student student) {
         Student updatedStudent = studentService.updateStudent(id, student);

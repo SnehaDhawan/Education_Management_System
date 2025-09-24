@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { LoginRequest } from '../models/interface';
 
 @Component({
   selector: 'login',
@@ -11,22 +13,48 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.css']
 })
 export class Login {
-  email = '';
-  password = '';
+email = '';
+password = '';
+role = '';
+hide = true;
+loading = false;
+error = '';
 
-  constructor(private router: Router) {}
 
-   login() {
-    // ✅ Replace this with API call to backend
-    if (this.email === 'admin@test.com' && this.password === 'admin') {
-      this.router.navigate(['/admin/dashboard']);
-    } else if (this.email === 'trainer@test.com' && this.password === 'trainer') {
-      this.router.navigate(['/trainer/dashboard']);
-    } else if (this.email === 'student@test.com' && this.password === 'student') {
-      this.router.navigate(['/student/dashboard']);
-    } else {
-      alert('Invalid credentials');
-    }
-  }
+constructor(private auth: AuthService, private router: Router) {}
 
+
+login() {
+this.error = '';
+if (!this.role) { this.error = 'Please select a role'; return; }
+
+
+const req: LoginRequest = { email: this.email, password: this.password, role: this.role };
+this.loading = true;
+
+
+this.auth.login(req).subscribe({
+next: (res) => {
+this.loading = false;
+// if backend provides token in response, store it
+if (res.token) localStorage.setItem('token', res.token);
+localStorage.setItem('role', res.role);
+const route = this.getDashboardRoute(res.role);
+this.router.navigate([route]);
+},
+error: (err) => {
+this.loading = false;
+this.error = err?.error?.message || err?.message || 'Login failed';
 }
+});
+}
+
+
+private getDashboardRoute(role: string) {
+const r = (role || '').toUpperCase();
+if (r === 'ADMIN') return '/admin/dashboard';
+if (r === 'TRAINER') return '/trainer/dashboard';
+return '/student/dashboard';
+}
+}
+

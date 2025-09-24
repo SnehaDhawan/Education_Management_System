@@ -1,10 +1,35 @@
-<h2>Login</h2>
-<form (ngSubmit)="login()">
-  <label>Email:</label>
-  <input type="text" [(ngModel)]="email" name="email" required />
+<div class="login-page">
+<div class="card">
+<h2>Sign in</h2>
 
-  <label>Password:</label>
-  <input type="password" [(ngModel)]="password" name="password" required />
 
-  <button type="submit">Login</button>
+<form (ngSubmit)="login()" #loginForm="ngForm" class="form">
+<label>Email</label>
+<input name="email" type="email" [(ngModel)]="email" required />
+
+
+<label>Password</label>
+<div class="pw-wrap">
+<input name="password" [type]="hide ? 'password' : 'text'" [(ngModel)]="password" required minlength="4" />
+<button type="button" class="toggle" (click)="hide = !hide">{{ hide ? 'Show' : 'Hide' }}</button>
+</div>
+
+
+<label>Role</label>
+<select name="role" [(ngModel)]="role" required>
+<option value="">-- Select role --</option>
+<option value="STUDENT">Student</option>
+<option value="TRAINER">Trainer</option>
+<option value="ADMIN">Admin</option>
+</select>
+
+
+<div class="actions">
+<button type="submit" [disabled]="loginForm.invalid || loading">{{ loading ? 'Signing in...' : 'Login' }}</button>
+</div>
+
+
+<div class="error" *ngIf="error">{{ error }}</div>
 </form>
+</div>
+</div>

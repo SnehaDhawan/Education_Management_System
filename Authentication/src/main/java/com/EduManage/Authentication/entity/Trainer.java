@@ -17,7 +17,7 @@ import lombok.*;
         private Integer id;
 
         @Column(name="trainer_id", nullable=false)
-        private Integer trainerId;
+        private String trainerId;
 
         @Column(name="trainer_name", nullable=false)
         private String trainerName;

@@ -3,6 +3,7 @@ import com.EduManage.Admin.domain.request.StudentRequest;
 
 import com.EduManage.Admin.domain.entity.Student;
 import com.EduManage.Admin.repository.StudentRepository;
+import com.EduManage.Admin.utility.CodeGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +16,20 @@ public class StudentService
     @Autowired
     private StudentRepository studentRepository;
 
-    public void saveStudent(StudentRequest studentRequest) {
+    @Autowired
+    private CodeGenerate codeGenerate;
+
+    public String saveStudent(StudentRequest studentRequest) {
         Student student = new Student();
-        student.setStudentId(studentRequest.getStudentId());
         student.setStudentName(studentRequest.getStudentName());
         student.setEmail(studentRequest.getEmail());
-        student.setPassword(studentRequest.getPassword()); // Add encryption later
+        student.setPassword(studentRequest.getPassword()); // TODO: encrypt later
         student.setMobileNo(studentRequest.getMobileNo());
         student.setStudentClass(studentRequest.getStudentClass());
+        String generatedCode = codeGenerate.generateCode("students", "student_id","STU");
+        student.setStudentId(generatedCode);
         studentRepository.save(student);
+        return generatedCode;
     }
 
     public List<Student> funGetStudentList() {

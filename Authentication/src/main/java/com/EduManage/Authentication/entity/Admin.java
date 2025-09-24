@@ -15,7 +15,7 @@ public class Admin {
     private Integer id;
 
     @Column(name="admin_id", nullable=false)
-    private Integer adminId;
+    private String adminId;
 
     @Column(nullable=false, unique=true)
     private String username;
