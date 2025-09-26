@@ -4,6 +4,8 @@ import com.EduManage.Admin.domain.request.StudentRequest;
 import com.EduManage.Admin.domain.entity.Student;
 import com.EduManage.Admin.repository.StudentRepository;
 import com.EduManage.Admin.utility.CodeGenerate;
+import com.EduManage.Admin.utility.EmailService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,10 @@ public class StudentService
     @Autowired
     private CodeGenerate codeGenerate;
 
+    @Autowired
+    EmailService emailService;
+
+    @Transactional
     public String saveStudent(StudentRequest studentRequest) {
         Student student = new Student();
         student.setStudentName(studentRequest.getStudentName());
@@ -29,6 +35,17 @@ public class StudentService
         String generatedCode = codeGenerate.generateCode("students", "student_id","STU");
         student.setStudentId(generatedCode);
         studentRepository.save(student);
+
+        String subject = "Your Student Account Created Successfully";
+        String body = "Hello " + student.getStudentName() + ",\n\n"
+                + "Your account has been created successfully.\n"
+                + "Student ID: " + generatedCode + "\n"
+                + "Email: " + student.getEmail() + "\n"
+                + "Password: " + student.getPassword() + "\n\n"
+                + "Please login to access your activities.";
+
+        emailService.sendEmail(student.getEmail(), subject, body);
+
         return generatedCode;
     }
 

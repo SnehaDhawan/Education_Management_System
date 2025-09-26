@@ -5,6 +5,7 @@ import com.EduManage.Admin.domain.entity.Trainer;
 import com.EduManage.Admin.domain.request.TrainerRequest;
 import com.EduManage.Admin.repository.TrainerRepository;
 import com.EduManage.Admin.utility.CodeGenerate;
+import com.EduManage.Admin.utility.EmailService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class TrainerService {
     @Autowired
     private CodeGenerate codeGenerate;
 
+    @Autowired
+    EmailService emailService;
+
 
     @Transactional
     public String saveTrainer(TrainerRequest trainerRequest) {
@@ -32,6 +36,18 @@ public class TrainerService {
         String generatedCode = codeGenerate.generateCode("trainers", "trainer_id", "TRN");
         trainer.setTrainerId(generatedCode);
         trainerRepository.save(trainer);
+
+        String subject = "Your Trainer Account Created Successfully";
+        String body = "Hello " + trainer.getTrainerName() + ",\n\n"
+                + "Your account has been created successfully.\n"
+                + "Trainer ID: " + generatedCode + "\n"
+                + "Email: " + trainer.getEmail() + "\n"
+                + "Password: " + trainer.getPassword() + "\n\n"
+                + "Please login to access your activities.";
+
+        emailService.sendEmail(trainer.getEmail(), subject, body);
+
+
         return generatedCode;
     }
 
