@@ -34,6 +34,28 @@ export class TrainerCreateComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    // Custom validation
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    const mobilePattern = /^[6-9]\d{9}$/;
+
+    const emailValid = emailPattern.test(this.formTrainer.email);
+    const passwordValid = passwordPattern.test(this.formTrainer.password);
+    const mobileValid = mobilePattern.test(this.formTrainer.mobileNo.toString());
+
+    if (!emailValid) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    if (!passwordValid) {
+      alert('Password must be at least 8 characters, include uppercase, lowercase, number, and special character.');
+      return;
+    }
+    if (!mobileValid) {
+      alert('Mobile number must be 10 digits and start with 6, 7, 8, or 9.');
+      return;
+    }
+
     if (form.valid) {
       if (this.formTrainer.trainerId) {
         // ✅ Update existing trainer

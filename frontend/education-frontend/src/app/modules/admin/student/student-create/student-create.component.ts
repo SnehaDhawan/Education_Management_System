@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Student } from '../../../../models/interface';
 import { FormsModule, NgForm } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { StudentService } from '../../../../services/student.service';
 
 @Component({
   selector: 'app-student-create',
-   standalone:true,
-  imports: [FormsModule], 
+  standalone:true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './student-create.component.html',
   styleUrl: './student-create.component.css',
 })
@@ -37,7 +38,28 @@ ngOnInit(): void {
 
 
 onSubmit(form: NgForm) {
-  debugger
+  // Custom validation
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+  const mobilePattern = /^[6-9]\d{9}$/;
+
+  const emailValid = emailPattern.test(this.formStudent.email);
+  const passwordValid = passwordPattern.test(this.formStudent.password);
+  const mobileValid = mobilePattern.test(this.formStudent.mobileNo.toString());
+
+  if (!emailValid) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+  if (!passwordValid) {
+    alert('Password must be at least 8 characters, include uppercase, lowercase, number, and special character.');
+    return;
+  }
+  if (!mobileValid) {
+    alert('Mobile number must be 10 digits and start with 6, 7, 8, or 9.');
+    return;
+  }
+
   if (form.valid) {
     if(this.formStudent.studentId) {
       // ✅ Update existing student
@@ -55,7 +77,6 @@ onSubmit(form: NgForm) {
     } 
     
     else {
-     debugger
       this.studentService.createStudent(this.formStudent).subscribe({
         next: (res: any) => {
           console.log('Student created successfully:', res);

@@ -31,7 +31,12 @@
         [(ngModel)]="formTrainer.email"
         name="email"
         required
+        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        #email="ngModel"
       />
+      <div *ngIf="email.invalid && email.touched" class="error">
+        Please enter a valid email address.
+      </div>
     </div>
 
     <div class="form-group">
@@ -41,7 +46,12 @@
         [(ngModel)]="formTrainer.password"
         name="password"
         required
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+        #password="ngModel"
       />
+      <div *ngIf="password.invalid && password.touched" class="error">
+        Password must be at least 8 characters, include uppercase, lowercase, number, and special character.
+      </div>
     </div>
 
     <div class="form-group">
@@ -51,7 +61,12 @@
         [(ngModel)]="formTrainer.mobileNo"
         name="mobileNo"
         required
+        pattern="^[6-9][0-9]{9}$"
+        #mobileNo="ngModel"
       />
+      <div *ngIf="mobileNo.invalid && mobileNo.touched" class="error">
+        Mobile number must be 10 digits and start with 6, 7, 8, or 9.
+      </div>
     </div>
 
     <div class="form-group">
