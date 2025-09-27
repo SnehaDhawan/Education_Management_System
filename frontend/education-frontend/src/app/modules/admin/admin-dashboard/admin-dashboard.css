@@ -1,3 +1,13 @@
+/* Card hover effect for Total Users */
+.card.clickable {
+  cursor: pointer;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.card.clickable:hover {
+  box-shadow: 0 6px 18px rgba(52,152,219,0.18);
+  background: linear-gradient(90deg, #eaf6fb 60%, #d0e6f7 100%);
+  color: #007bff;
+}
 .dashboard-container {
   display: flex;
   height: 100vh;

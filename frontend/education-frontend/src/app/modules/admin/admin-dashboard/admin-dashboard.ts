@@ -1,3 +1,7 @@
+import { TrainerService } from '../../../services/trainer.service';
+import { Trainer } from '../../../models/interface';
+import { StudentService } from '../../../services/student.service';
+import { Student } from '../../../models/interface';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { StudentListComponent } from "../student/student-list/student-list.component";
@@ -18,8 +22,27 @@ export class Dashboard {
   studentView: 'list' | 'create' = 'list';
  trainerView: 'list' | 'create' = 'list'; // default to list view
   totalUsers = 120;
-  activeTrainers = 15;
+  trainerCount = 0;
   reports = 5;
+  studentCount = 0;
+  showingStudentCount = false;
+
+  constructor(private studentService: StudentService, private trainerService: TrainerService) {
+    this.fetchTrainerCount();
+    this.fetchStudentCount();
+  }
+  fetchStudentCount() {
+    this.studentService.getAllStudents().subscribe((students: Student[]) => {
+      this.studentCount = students.length;
+    });
+  }
+
+  fetchTrainerCount() {
+    this.trainerService.getAllTrainers().subscribe((trainers: Trainer[]) => {
+      this.trainerCount = trainers.length;
+    });
+  }
+  // Removed hover logic for student count
 
   showPage(page: string) {
     this.activePage = page;
