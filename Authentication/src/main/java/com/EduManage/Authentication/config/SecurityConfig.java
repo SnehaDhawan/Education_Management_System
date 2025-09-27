@@ -1,7 +1,8 @@
-package com.EduManage.Authentication.security;
+package com.EduManage.Authentication.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,17 +16,18 @@ public class SecurityConfig
         return new BCryptPasswordEncoder();
     }
 
+    // Security filter chain
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> {}) // integrates with CorsConfig
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // preflight requests
+                        .requestMatchers("/auth/**").permitAll() // login, signup, forgot password
                         .anyRequest().authenticated()
                 );
 
         return http.build();
     }
-
-
 }

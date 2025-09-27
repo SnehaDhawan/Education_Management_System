@@ -8,3 +8,23 @@
 .actions { margin-top:18px; }
 .actions button { width:100%; padding:10px; border-radius:8px; border:0; font-weight:700; }
 .error { color: #b00020; margin-top:12px; }
+
+
+.forgot-password {
+  margin: 10px 0;
+  text-align: right;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.link-btn:hover {
+  color: #0056b3;
+}

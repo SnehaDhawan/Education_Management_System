@@ -1,4 +1,4 @@
-<div class="login-page">
+<!-- <div class="login-page">
 <div class="card">
 <h2>Sign in</h2>
 
@@ -32,4 +32,84 @@
 <div class="error" *ngIf="error">{{ error }}</div>
 </form>
 </div>
+</div> -->
+
+<div class="login-page">
+  <div class="card">
+    <h2 *ngIf="!forgotMode && !otpMode && !resetMode">Sign in</h2>
+    <h2 *ngIf="forgotMode && !otpMode">Forgot Password</h2>
+    <h2 *ngIf="otpMode">Enter OTP</h2>
+    <h2 *ngIf="resetMode">Reset Password</h2>
+
+    <!-- LOGIN FORM -->
+    <form *ngIf="!forgotMode && !otpMode && !resetMode" (ngSubmit)="login()" #loginForm="ngForm" class="form">
+      <label>Email</label>
+      <input name="email" type="email" [(ngModel)]="email" required />
+
+      <label>Password</label>
+      <div class="pw-wrap">
+        <input name="password" [type]="hide ? 'password' : 'text'" [(ngModel)]="password" required minlength="4" />
+        <button type="button" class="toggle" (click)="hide = !hide">{{ hide ? 'Show' : 'Hide' }}</button>
+      </div>
+
+      <label>Role</label>
+      <select name="role" [(ngModel)]="role" required>
+        <option value="">-- Select role --</option>
+        <option value="STUDENT">Student</option>
+        <option value="TRAINER">Trainer</option>
+        <option value="ADMIN">Admin</option>
+      </select>
+
+      <div class="actions">
+        <button type="submit" [disabled]="loginForm.invalid || loading">{{ loading ? 'Signing in...' : 'Login' }}</button>
+      </div>
+
+      <div class="forgot-password">
+        <button type="button" class="link-btn" (click)="forgotPassword()">Forgot Password?</button>
+      </div>
+
+      <div class="error" *ngIf="error">{{ error }}</div>
+    </form>
+
+    <!-- FORGOT PASSWORD FORM -->
+    <form *ngIf="forgotMode && !otpMode && !resetMode" (ngSubmit)="sendOtp()" class="form">
+      <label>Email</label>
+      <input name="email" type="email" [(ngModel)]="email" required />
+
+      <label>Role</label>
+      <select name="role" [(ngModel)]="role" required>
+        <option value="">-- Select role --</option>
+        <option value="STUDENT">Student</option>
+        <option value="TRAINER">Trainer</option>
+        <option value="ADMIN">Admin</option>
+      </select>
+
+      <div class="actions">
+        <button type="submit">Send OTP</button>
+        <button type="button" (click)="cancelForgot()">Cancel</button>
+      </div>
+    </form>
+
+    <!-- OTP FORM -->
+    <form *ngIf="otpMode" (ngSubmit)="verifyOtp()" class="form">
+      <label>Enter OTP</label>
+      <input name="otp" type="text" [(ngModel)]="otp" required />
+
+      <div class="actions">
+        <button type="submit">Verify OTP</button>
+        <button type="button" (click)="cancelForgot()">Cancel</button>
+      </div>
+    </form>
+
+    <!-- RESET PASSWORD FORM -->
+    <form *ngIf="resetMode" (ngSubmit)="sendForgotRequest()" class="form">
+      <label>New Password</label>
+      <input name="newPassword" type="password" [(ngModel)]="newPassword" required minlength="4" />
+
+      <div class="actions">
+        <button type="submit">Change Password</button>
+        <button type="button" (click)="cancelForgot()">Cancel</button>
+      </div>
+    </form>
+  </div>
 </div>
