@@ -133,6 +133,7 @@ export class Login {
 
   // Step 1: Send OTP
   sendOtp() {
+    debugger
     if (!this.email || !this.role) {
       this.error = 'Please enter email and role';
       return;

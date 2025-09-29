@@ -1,0 +1,34 @@
+<div class="batch-form">
+  <h2>Create Batch</h2>
+
+  <form #batchForm="ngForm" (ngSubmit)="onSubmit(batchForm)">
+    <!-- Batch Name -->
+    <label>Batch Name:</label>
+    <input type="text" [(ngModel)]="formBatch.batchName" name="batchName" required />
+
+    <!-- Course -->
+    <label>Course:</label>
+    <input type="text" [(ngModel)]="formBatch.course" name="course" required />
+
+    <!-- Schedule -->
+    <label>Schedule:</label>
+    <input type="text" [(ngModel)]="formBatch.schedule" name="schedule" required />
+
+    <!-- Trainer ID -->
+    <label>Trainer ID:</label>
+    <input type="text" [(ngModel)]="formBatch.trainerId" name="trainerId" required />
+
+    <!-- Start Date -->
+    <label>Start Date:</label>
+    <input type="date" [(ngModel)]="formBatch.startDate" name="startDate" />
+
+    <!-- End Date -->
+    <label>End Date:</label>
+    <input type="date" [(ngModel)]="formBatch.endDate" name="endDate" />
+
+    <div class="buttons">
+      <button type="submit">Save Batch</button>
+      <button type="button" (click)="closeForm()">Cancel</button>
+    </div>
+  </form>
+</div>

@@ -9,6 +9,8 @@ import { StudentListComponent } from "../student/student-list/student-list.compo
 import { StudentCreateComponent } from "../student/student-create/student-create.component";
 import { TrainerListComponent } from "../trainer/trainer-list/trainer-list.component";
 import { TrainerCreateComponent } from "../trainer/trainer-create/trainer-create.component";
+import { BatchCreateComponent } from "../batches/batch-create/batch-create.component";
+import { BatchListComponent } from "../batches/batch-list/batch-list.component";
 
 // Define Media interface
 export interface Media {
@@ -20,14 +22,15 @@ export interface Media {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, StudentListComponent, StudentCreateComponent, TrainerListComponent, TrainerCreateComponent],
+  imports: [CommonModule, StudentListComponent, StudentCreateComponent, TrainerListComponent, TrainerCreateComponent, BatchListComponent, BatchCreateComponent],
   templateUrl: './admin-dashboard.html',
   styleUrls: ['./admin-dashboard.css']
 })
 export class Dashboard {
   activePage: string = 'dashboard';
   studentView: 'list' | 'create' = 'list';
-  trainerView: 'list' | 'create' = 'list';
+  trainerView: 'list' | 'create' = 'list'; // default to list view
+  batchView: 'list' | 'create' = 'list';
 
   totalUsers = 120;
   trainerCount = 0;
@@ -80,6 +83,9 @@ export class Dashboard {
     this.trainerView = view;
   }
 
+    toggleBatchView(view: 'list' | 'create') {
+    this.batchView = view;
+  }
   logout() {
     console.log("Logout clicked");
     // Add your logout logic here

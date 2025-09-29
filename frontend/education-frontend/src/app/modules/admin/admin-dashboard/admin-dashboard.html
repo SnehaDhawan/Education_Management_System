@@ -5,8 +5,9 @@
     <a (click)="showPage('dashboard')">Dashboard</a>
     <a (click)="showPage('students')">Students</a>
     <a (click)="showPage('trainers')">Trainers</a>
+    <a (click)="showPage('batches')">Batches</a>
     <a (click)="showPage('reports')">Reports</a>
-  <a (click)="showPage('media')">Media</a>
+    <a (click)="showPage('media')">Media</a>
   </div>
 
   <!-- Main Content -->
@@ -75,6 +76,26 @@
       </div>
 
 
+      <div *ngIf="activePage === 'batches'">
+        <h3>Batch Section</h3>
+
+        <button class="add-btn" (click)="toggleBatchView('list')">Batch List</button>
+        <button class="add-btn" (click)="toggleBatchView('create')">Add Batch</button>
+
+        <!-- Batch List -->
+        <div *ngIf="batchView === 'list'">
+          <app-batch-list></app-batch-list>
+        </div>
+
+        <!-- Batch Create -->
+        <div *ngIf="batchView === 'create'">
+          <app-batch-create (formClosed)="toggleBatchView('list')"></app-batch-create>
+
+        </div>
+      </div>
+
+
+
       <!-- Reports Page -->
       <div *ngIf="activePage === 'reports'">
         <h3>Reports Section</h3>
@@ -83,27 +104,27 @@
 
       <!-- Media Page -->
       <div *ngIf="activePage === 'media'">
-  <h3>Media Section</h3>
-  <button class="add-btn" (click)="showMediaUpload = true">Add Media</button>
+        <h3>Media Section</h3>
+        <button class="add-btn" (click)="showMediaUpload = true">Add Media</button>
 
-  <div *ngIf="showMediaUpload" class="media-upload-modal">
-    <h4>Upload Media</h4>
-    <input type="file" accept="video/*,audio/*,image/*" (change)="onMediaSelected($event)" multiple />
-    <button class="btn" (click)="uploadMedia()" [disabled]="!uploadedMediaFiles.length">Upload</button>
-    <button class="btn" (click)="showMediaUpload = false">Cancel</button>
-  </div>
+        <div *ngIf="showMediaUpload" class="media-upload-modal">
+          <h4>Upload Media</h4>
+          <input type="file" accept="video/*,audio/*,image/*" (change)="onMediaSelected($event)" multiple />
+          <button class="btn" (click)="uploadMedia()" [disabled]="!uploadedMediaFiles.length">Upload</button>
+          <button class="btn" (click)="showMediaUpload = false">Cancel</button>
+        </div>
 
-  <div class="media-section">
-    <h3>Uploaded Media</h3>
-    <ul>
-      <li *ngFor="let media of mediaList">
-        <img [src]="media.url" width="150" height="150" alt="Media"/>
-        <span>{{ media.filename }}</span>
-      </li>
-    </ul>
-  </div>
-</div>
-
+        <div class="media-section">
+          <h3>Uploaded Media</h3>
+          <ul>
+            <li *ngFor="let media of mediaList">
+              <img [src]="media.url" width="150" height="150" alt="Media" />
+              <span>{{ media.filename }}</span>
+            </li>
+          </ul>
+        </div>
       </div>
+
     </div>
   </div>
+</div>

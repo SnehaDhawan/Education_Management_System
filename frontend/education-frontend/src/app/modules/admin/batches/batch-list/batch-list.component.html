@@ -1,0 +1,44 @@
+<div class="batch-container">
+  <h2>Batch List</h2>
+
+  <button class="add-btn" (click)="showForm = true">+ Add New Batch</button>
+
+  <!-- Batch Create/Edit Form -->
+<!-- <app-batch-create
+  *ngIf="showForm"
+  [selectedBatch]="selectedBatch"
+  (formClose)="closeForm($event)">
+</app-batch-create> -->
+
+
+  <!-- Batch Table -->
+  <table class="batch-table" *ngIf="batches && batches.length > 0">
+    <thead>
+      <tr>
+        <th>Batch ID</th>
+        <th>Batch Name</th>
+        <th>Course</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let batch of batches">
+        <td>{{ batch.batchId }}</td>
+        <td>{{ batch.batchName }}</td>
+        <td>{{ batch.course }}</td>
+        <td>{{ batch.startDate }}</td>
+        <td>{{ batch.endDate }}</td>
+        <td>
+          <button class="edit-btn" (click)="editBatch(batch)">Edit</button>
+          <button class="delete-btn" (click)="deleteBatch(batch.batchId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="no-data" *ngIf="batches.length === 0">
+    No batches available. Please add a new batch.
+  </div>
+</div>

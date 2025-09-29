@@ -1,6 +1,5 @@
 package com.EduManage.Admin.Controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.EduManage.Admin.domain.entity.Student;
 import com.EduManage.Admin.domain.request.StudentRequest;
 import com.EduManage.Admin.service.StudentService;
