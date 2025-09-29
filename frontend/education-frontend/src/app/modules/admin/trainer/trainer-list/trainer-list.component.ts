@@ -17,6 +17,9 @@ export class TrainerListComponent {
   trainers: Trainer[] = [];
   showForm = false;
   selectedTrainer: Trainer | null = null;
+  infoTrainer: Trainer | null = null;
+  batchTime: string = '';
+  selectedBatch: string = '';
 
   constructor(private trainerService: TrainerService) {}
 
@@ -38,6 +41,24 @@ export class TrainerListComponent {
   editTrainer(trainer: Trainer) {
     this.selectedTrainer = { ...trainer };
     this.showForm = true;
+  }
+
+  showTrainerInfo(trainer: Trainer) {
+    this.infoTrainer = trainer;
+    this.batchTime = '';
+    this.selectedBatch = '';
+  }
+  onBatchChange() {
+    if (this.selectedBatch) {
+      const now = new Date();
+      this.batchTime = now.toLocaleString();
+    } else {
+      this.batchTime = '';
+    }
+  }
+
+  closeTrainerInfo() {
+    this.infoTrainer = null;
   }
 
   deleteTrainer(trainerId: string) {

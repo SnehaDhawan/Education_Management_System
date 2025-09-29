@@ -29,8 +29,6 @@ public class AuthController {
         return authService.login(request);
     }
 
-
-
     @PostMapping("/update-password")
     public ResponseEntity<Map<String, String>> updatePassword(@RequestBody PasswordUpdateRequest request) {
         boolean updated = authService.updatePassword(request.getEmail(), request.getRole(), request.getNewPassword());

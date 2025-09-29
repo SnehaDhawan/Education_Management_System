@@ -6,7 +6,7 @@
     <a (click)="showPage('students')">Students</a>
     <a (click)="showPage('trainers')">Trainers</a>
     <a (click)="showPage('reports')">Reports</a>
-    <a (click)="showPage('settings')">Settings</a>
+  <a (click)="showPage('media')">Media</a>
   </div>
 
   <!-- Main Content -->
@@ -81,11 +81,29 @@
         <p>Reports data goes here.</p>
       </div>
 
-      <!-- Settings Page -->
-      <div *ngIf="activePage === 'settings'">
-        <h3>Settings Section</h3>
-        <p>Settings configuration goes here.</p>
+      <!-- Media Page -->
+      <div *ngIf="activePage === 'media'">
+  <h3>Media Section</h3>
+  <button class="add-btn" (click)="showMediaUpload = true">Add Media</button>
+
+  <div *ngIf="showMediaUpload" class="media-upload-modal">
+    <h4>Upload Media</h4>
+    <input type="file" accept="video/*,audio/*,image/*" (change)="onMediaSelected($event)" multiple />
+    <button class="btn" (click)="uploadMedia()" [disabled]="!uploadedMediaFiles.length">Upload</button>
+    <button class="btn" (click)="showMediaUpload = false">Cancel</button>
+  </div>
+
+  <div class="media-section">
+    <h3>Uploaded Media</h3>
+    <ul>
+      <li *ngFor="let media of mediaList">
+        <img [src]="media.url" width="150" height="150" alt="Media"/>
+        <span>{{ media.filename }}</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
       </div>
     </div>
   </div>
-</div>

@@ -1,53 +1,74 @@
-import { TrainerService } from '../../../services/trainer.service';
-import { Trainer } from '../../../models/interface';
-import { StudentService } from '../../../services/student.service';
-import { Student } from '../../../models/interface';
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TrainerService } from '../../../services/trainer.service';
+import { StudentService } from '../../../services/student.service';
+import { ApiService } from '../../../services/api.service';
+import { Student } from '../../../models/interface';
+import { Trainer } from '../../../models/interface';
 import { StudentListComponent } from "../student/student-list/student-list.component";
 import { StudentCreateComponent } from "../student/student-create/student-create.component";
 import { TrainerListComponent } from "../trainer/trainer-list/trainer-list.component";
 import { TrainerCreateComponent } from "../trainer/trainer-create/trainer-create.component";
+
+// Define Media interface
+export interface Media {
+  filename: string;
+  url?: string; // optional
+}
+
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule, StudentListComponent, StudentCreateComponent, TrainerListComponent, TrainerCreateComponent],
   templateUrl: './admin-dashboard.html',
-  styleUrl: './admin-dashboard.css'
+  styleUrls: ['./admin-dashboard.css']
 })
 export class Dashboard {
-
- activePage: string = 'dashboard';
+  activePage: string = 'dashboard';
   studentView: 'list' | 'create' = 'list';
- trainerView: 'list' | 'create' = 'list'; // default to list view
+  trainerView: 'list' | 'create' = 'list';
+
   totalUsers = 120;
   trainerCount = 0;
-  reports = 5;
   studentCount = 0;
+  reports = 5;
   showingStudentCount = false;
 
-  constructor(private studentService: StudentService, private trainerService: TrainerService) {
+  // Media upload
+  showMediaUpload: boolean = false;
+  uploadedMediaFiles: File[] = [];
+  mediaList: Media[] = [];
+
+  constructor(
+    private studentService: StudentService,
+    private trainerService: TrainerService,
+    private apiService: ApiService
+  ) {
     this.fetchTrainerCount();
     this.fetchStudentCount();
+    this.loadMediaList(); // Load uploaded media on init
   }
+
+  // Fetch student count
   fetchStudentCount() {
     this.studentService.getAllStudents().subscribe((students: Student[]) => {
       this.studentCount = students.length;
     });
   }
 
+  // Fetch trainer count
   fetchTrainerCount() {
     this.trainerService.getAllTrainers().subscribe((trainers: Trainer[]) => {
       this.trainerCount = trainers.length;
     });
   }
-  // Removed hover logic for student count
 
+  // Show different pages
   showPage(page: string) {
     this.activePage = page;
     if (page === 'students') {
-      this.studentView = 'list'; // default to student list
+      this.studentView = 'list';
     }
   }
 
@@ -55,12 +76,51 @@ export class Dashboard {
     this.studentView = view;
   }
 
-    toggleTrainerView(view: 'list' | 'create') {
+  toggleTrainerView(view: 'list' | 'create') {
     this.trainerView = view;
   }
 
   logout() {
     console.log("Logout clicked");
-    // add your logout logic here
+    // Add your logout logic here
+  }
+
+  // Media selection
+  onMediaSelected(event: any) {
+    const files: FileList = event.target.files;
+    this.uploadedMediaFiles = Array.from(files);
+    console.log('Selected media files:', this.uploadedMediaFiles);
+  }
+
+  // Upload media
+  uploadMedia() {
+    if (this.uploadedMediaFiles.length) {
+      this.apiService.uploadMedia(this.uploadedMediaFiles).subscribe({
+        next: (mediaList: Media[]) => {
+          // Append new media to the list
+          this.mediaList = this.mediaList.concat(mediaList);
+          this.showMediaUpload = false;
+          this.uploadedMediaFiles = [];
+        },
+        error: (err) => console.error('Upload failed:', err)
+      });
+    }
+  }
+
+  // Load media list from backend
+  loadMediaList(): void {
+    debugger
+    this.apiService.getMediaList().subscribe({
+      next: (data) => {
+        // Map to Media interface with URLs
+        this.mediaList = data.map(media => ({
+          filename: media.filename,
+          url: media.filename.startsWith('http') ? media.filename : `http://localhost:8082/media/${media.filename}`
+        }));
+      },
+      error: (err) => {
+        console.error('Error fetching media list', err);
+      }
+    });
   }
 }
