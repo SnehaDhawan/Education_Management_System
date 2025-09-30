@@ -115,7 +115,6 @@ export class Dashboard {
 
   // Load media list from backend
   loadMediaList(): void {
-    debugger
     this.apiService.getMediaList().subscribe({
       next: (data) => {
         // Map to Media interface with URLs

@@ -11,8 +11,7 @@ import { FormsModule } from '@angular/forms';
   imports: [TrainerCreateComponent,CommonModule,FormsModule],
   templateUrl: './trainer-list.component.html',
   styleUrl: './trainer-list.component.css'
-})
-
+}) 
 export class TrainerListComponent {
   trainers: Trainer[] = [];
   showForm = false;
@@ -20,13 +19,12 @@ export class TrainerListComponent {
   infoTrainer: Trainer | null = null;
   batchTime: string = '';
   selectedBatch: string = '';
-
   constructor(private trainerService: TrainerService) {}
-
+  
   ngOnInit(): void {
     this.loadTrainers();
   }
-
+ 
   loadTrainers(): void {
     this.trainerService.getAllTrainers().subscribe({
       next: (data) => {
@@ -37,17 +35,18 @@ export class TrainerListComponent {
       }
     });
   }
-
+  
   editTrainer(trainer: Trainer) {
     this.selectedTrainer = { ...trainer };
     this.showForm = true;
   }
-
+  
   showTrainerInfo(trainer: Trainer) {
     this.infoTrainer = trainer;
     this.batchTime = '';
     this.selectedBatch = '';
   }
+  
   onBatchChange() {
     if (this.selectedBatch) {
       const now = new Date();
@@ -56,11 +55,11 @@ export class TrainerListComponent {
       this.batchTime = '';
     }
   }
-
+  
   closeTrainerInfo() {
     this.infoTrainer = null;
   }
-
+  
   deleteTrainer(trainerId: string) {
     this.trainerService.deleteTrainer(trainerId).subscribe({
       next: () => {
@@ -71,8 +70,8 @@ export class TrainerListComponent {
       }
     });
   }
-
- closeForm(updatedTrainer: Trainer | null) {
+ 
+  closeForm(updatedTrainer: Trainer | null) {
   if (updatedTrainer) {
     if (updatedTrainer.trainerId) {
       const index = this.trainers.findIndex(t => t.trainerId === updatedTrainer.trainerId);
@@ -87,7 +86,6 @@ export class TrainerListComponent {
       this.trainers.push({ ...updatedTrainer, trainerId: String(newId) });
     }
   }
-
   this.showForm = false;
   this.selectedTrainer = null;
 }

@@ -2,22 +2,22 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { BatchService } from '../../../../services/batch.service';
-import { Batch } from '../../../../models/interface';
+import { Batch, Trainer } from '../../../../models/interface';
+import { TrainerService } from '../../../../services/trainer.service';
 
 @Component({
   selector: 'app-batch-create',
-  standalone :true,
-    imports: [CommonModule, FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './batch-create.component.html',
-  styleUrl: './batch-create.component.css'
+  styleUrl: './batch-create.component.css',
 })
-export class BatchCreateComponent  implements OnInit {
-  @Input() batch: Batch | null = null;       
-  @Output() formClose = new EventEmitter<Batch | null>();
+export class BatchCreateComponent implements OnInit {
+  @Input() selectedBatch: Batch | null = null; // ✅ Input property
+  @Output() formClose: EventEmitter<Batch | null> = new EventEmitter();
 
-  constructor(private batchService: BatchService) {}
-
-  // ✅ Form model
+  constructor(private batchService: BatchService, private trainerService: TrainerService) {}
+  trainers: Trainer[] = [];
   formBatch: Batch = {
     batchId: '',
     batchName: '',
@@ -26,20 +26,18 @@ export class BatchCreateComponent  implements OnInit {
     startDate: '',
     endDate: '',
     course: '',
-    schedule: ''
+    schedule: '',
   };
 
   ngOnInit(): void {
     if (this.selectedBatch) {
       this.formBatch = { ...this.selectedBatch };
     }
+    this.loadTrainers();
   }
-
-  // ✅ Handle submit
   onSubmit(form: NgForm) {
     if (form.valid) {
       if (this.formBatch.batchId) {
-        // 🔹 Update batch
         this.batchService.updateBatch(this.formBatch).subscribe({
           next: (res: any) => {
             console.log('Batch updated successfully:', res);
@@ -52,7 +50,6 @@ export class BatchCreateComponent  implements OnInit {
           },
         });
       } else {
-        // 🔹 Create batch
         this.batchService.createBatch(this.formBatch).subscribe({
           next: (res: any) => {
             console.log('Batch created successfully:', res);
@@ -67,11 +64,8 @@ export class BatchCreateComponent  implements OnInit {
       }
     }
   }
-
-  // ✅ Reset form + emit close
   closeForm(batch?: Batch) {
-    this.formClosed.emit(batch || null);
-
+    this.formClose.emit(batch || null);
     this.formBatch = {
       batchId: '',
       batchName: '',
@@ -80,10 +74,17 @@ export class BatchCreateComponent  implements OnInit {
       startDate: '',
       endDate: '',
       course: '',
-      schedule: ''
+      schedule: '',
     };
   }
+  loadTrainers(): void {
+    this.trainerService.getAllTrainers().subscribe({
+      next: (data) => {
+        this.trainers = data;
+      },
+      error: (err) => {
+        console.error('Error loading trainers:', err);
+      },
+    });
+  }
 }
-
-
-

@@ -14,7 +14,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/batch")
-@CrossOrigin(origins = "http://localhost:4200")
 public class BatchController {
 
     @Autowired

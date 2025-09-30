@@ -11,12 +11,30 @@
     <input type="text" [(ngModel)]="formBatch.course" name="course" required />
 
     <!-- Schedule -->
-    <label>Schedule:</label>
-    <input type="text" [(ngModel)]="formBatch.schedule" name="schedule" required />
+    <!-- Schedule (Batch Time) -->
+<label for="schedule">Batch Time:</label>
+<select id="schedule" [(ngModel)]="formBatch.schedule" name="schedule" required>
+  <option value="" disabled selected>Select Time</option>
+  <option value="8 AM – 10 AM">8 AM – 10 AM</option>
+  <option value="10 AM – 12 PM">10 AM – 12 PM</option>
+  <option value="12 PM – 2 PM">12 PM – 2 PM</option>
+  <option value="4 PM – 6 PM">4 PM – 6 PM</option>
+  <option value="6 PM – 8 PM">6 PM – 8 PM</option>
+</select>
 
-    <!-- Trainer ID -->
-    <label>Trainer ID:</label>
-    <input type="text" [(ngModel)]="formBatch.trainerId" name="trainerId" required />
+
+
+  
+
+    <!-- Trainer -->
+    <label for="trainer">Trainer:</label>
+    <select id="trainer" [(ngModel)]="formBatch.trainerId" name="trainerId" required>
+      <option value="" disabled selected>Select Trainer</option>
+      <option *ngFor="let trainer of trainers" [value]="trainer.trainerId">
+        {{ trainer.trainerName }}
+      </option>
+    </select>
+
 
     <!-- Start Date -->
     <label>Start Date:</label>
