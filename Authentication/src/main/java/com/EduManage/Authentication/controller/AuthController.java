@@ -21,8 +21,6 @@ public class AuthController {
     @Autowired
     private  AuthService authService;
 
-
-
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
         System.out.println(">>> /auth/login endpoint HIT");
@@ -46,6 +44,11 @@ public class AuthController {
     @PostMapping("/send-otp")
     public ResponseEntity<Map<String, String>> sendOtp(@RequestBody OtpRequest request) {
         Map<String, String> response = new HashMap<>();
+        boolean userExists = authService.verifyUserByEmailAndRole(request.getEmail(), request.getRole());
+        if (!userExists) {
+            response.put("message", "Invalid email or role");
+            return ResponseEntity.status(400).body(response);
+        }
         boolean sent = authService.sendOtpToEmail(request.getEmail());
         if (sent) {
             response.put("message", "OTP sent successfully");
@@ -55,6 +58,7 @@ public class AuthController {
             return ResponseEntity.status(500).body(response);
         }
     }
+
 
     @PostMapping("/verify-otp")
     public ResponseEntity<Map<String, String>> verifyOtp(@RequestBody OtpRequest request) {

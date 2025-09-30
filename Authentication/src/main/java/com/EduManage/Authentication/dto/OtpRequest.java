@@ -10,4 +10,5 @@ public class OtpRequest {
 
     private String email;
     private String otp;
+    private  String role;
 }

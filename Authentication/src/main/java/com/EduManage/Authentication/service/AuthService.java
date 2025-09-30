@@ -163,4 +163,22 @@ public class AuthService {
     }
 
 
+    public boolean verifyUserByEmailAndRole(String email, String role) {
+        switch (role.toUpperCase()) {
+            case "ADMIN":
+                return adminRepo.findByEmailId(email).isPresent();
+
+            case "TRAINER":
+                return trainerRepo.findByEmail(email).isPresent();
+
+            case "STUDENT":
+                return studentRepo.findByEmail(email).isPresent();
+
+            default:
+                return false;
+        }
+    }
+
+
+
 }

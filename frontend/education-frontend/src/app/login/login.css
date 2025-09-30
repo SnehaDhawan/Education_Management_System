@@ -6,7 +6,7 @@
 .pw-wrap { display:flex; gap:8px; }
 .pw-wrap .toggle { padding:10px; border-radius:8px; border:1px solid #ddd; background:#f7f7f7; }
 .actions { margin-top:18px; }
-.actions button { width:100%; padding:10px; border-radius:8px; border:0; font-weight:700; }
+.actions button { width:100%; padding:10px; border-radius:8px; border:0; font-weight:700;display: flex; }
 .error { color: #b00020; margin-top:12px; }
 
 

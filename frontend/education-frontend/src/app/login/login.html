@@ -85,7 +85,7 @@
       </select>
 
       <div class="actions">
-        <button type="submit">Send OTP</button>
+        <button type="submit">Send OTP</button><br>
         <button type="button" (click)="cancelForgot()">Cancel</button>
       </div>
     </form>
@@ -96,7 +96,7 @@
       <input name="otp" type="text" [(ngModel)]="otp" required />
 
       <div class="actions">
-        <button type="submit">Verify OTP</button>
+        <button type="submit">Verify OTP</button><br>
         <button type="button" (click)="cancelForgot()">Cancel</button>
       </div>
     </form>
@@ -107,7 +107,7 @@
       <input name="newPassword" type="password" [(ngModel)]="newPassword" required minlength="4" />
 
       <div class="actions">
-        <button type="submit">Change Password</button>
+        <button type="submit">Change Password</button><br>
         <button type="button" (click)="cancelForgot()">Cancel</button>
       </div>
     </form>
