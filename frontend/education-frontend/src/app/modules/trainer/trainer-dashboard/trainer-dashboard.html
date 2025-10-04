@@ -19,8 +19,8 @@
     <header class="header">
       <h2>Trainer Dashboard</h2>
       <div class="user-info">
-        <span>👩‍🏫 Trainer</span>
-        <button class="logout-btn">Logout</button>
+        <span>👩‍🏫 {{ trainerName || 'Trainer'}}</span>
+        <button (click)="logout()" class="logout-btn">Logout</button>
       </div>
     </header>
 

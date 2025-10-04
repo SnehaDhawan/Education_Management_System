@@ -23,7 +23,7 @@ export class StudentCreateComponent implements OnInit {
     email: '',
     password: '',
     mobileNo: 0,
-    class: ''
+    studentClass: ''
   };
 
   constructor(private studentService: StudentService) {}
@@ -104,7 +104,7 @@ closeForm(student?: Student) {
     email: '',
     password: '',
     mobileNo: 0,
-    class: ''
+    studentClass: ''
   };
 }
 

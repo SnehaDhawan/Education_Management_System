@@ -19,8 +19,8 @@
     <header class="header">
       <h2>Student Dashboard</h2>
       <div class="user-info">
-        <span>👩‍🎓 Student</span>
-        <button class="logout-btn">Logout</button>
+      <span>👩‍🎓 {{ studentName || 'Guest' }}</span>
+        <button (click)="logout()"  class="logout-btn">Logout</button>
       </div>
     </header>
 

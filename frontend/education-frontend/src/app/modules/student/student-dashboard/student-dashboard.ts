@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,9 +9,13 @@ import { Component } from '@angular/core';
   templateUrl: './student-dashboard.html',
   styleUrl: './student-dashboard.css'
 })
-export class Dashboard {
+export class Dashboard implements OnInit{
+  constructor (private router: Router){};
 
  activeTab = 'overview';
+studentName: string = '';
+
+
 
   myBatches = [
     { name: 'Java Batch A', trainer: 'Mr. Sharma', time: '10:00 - 12:00' },
@@ -36,6 +41,11 @@ export class Dashboard {
     { task: 'Project Report', score: 'B+', feedback: 'Needs improvement' }
   ];
 
+   ngOnInit(): void {
+    this.studentName = localStorage.getItem('name') || '';
+  }
+  
+
   onFileSelected(event: any, task: any) {
     const file = event.target.files[0];
     task.file = file;
@@ -49,5 +59,12 @@ export class Dashboard {
     } else {
       alert('Please select a file before submitting');
     }
+  }
+
+   logout() {
+    console.log("Logout clicked");
+    localStorage.clear(); 
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
   }
 }

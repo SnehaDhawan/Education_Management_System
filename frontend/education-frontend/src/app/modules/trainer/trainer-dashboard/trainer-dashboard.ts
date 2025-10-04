@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,9 +10,11 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './trainer-dashboard.html',
   styleUrl: './trainer-dashboard.css'
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
+  constructor (private router: Router){};
 
  activeTab = 'batches';
+ trainerName: string = '';
 
   todayBatches = [
     { name: 'Java Batch A', time: '10:00 - 12:00', students: ['Amit', 'Riya', 'Sneha'] },
@@ -29,6 +32,10 @@ export class Dashboard {
     { student: 'Riya', title: 'Assignment 1' },
     { student: 'Rahul', title: 'Project Report' }
   ];
+
+   ngOnInit(): void {
+    this.trainerName = localStorage.getItem('name') || '';
+  }
 
   getStudentsForBatch(batchName: string) {
     const batch = this.todayBatches.find(b => b.name === batchName);
@@ -48,5 +55,13 @@ export class Dashboard {
     } else {
       alert('Please select a batch and enter task details');
     }
+  }
+
+  
+   logout() {
+    console.log("Logout clicked");
+    localStorage.clear(); 
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
   }
 }
