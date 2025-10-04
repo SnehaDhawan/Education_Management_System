@@ -11,6 +11,7 @@ import { TrainerListComponent } from "../trainer/trainer-list/trainer-list.compo
 import { TrainerCreateComponent } from "../trainer/trainer-create/trainer-create.component";
 import { BatchCreateComponent } from "../batches/batch-create/batch-create.component";
 import { BatchListComponent } from "../batches/batch-list/batch-list.component";
+import { Router } from '@angular/router';
 
 // Define Media interface
 export interface Media {
@@ -37,8 +38,6 @@ export class Dashboard {
   studentCount = 0;
   reports = 5;
   showingStudentCount = false;
-
-  // Media upload
   showMediaUpload: boolean = false;
   uploadedMediaFiles: File[] = [];
   mediaList: Media[] = [];
@@ -46,11 +45,12 @@ export class Dashboard {
   constructor(
     private studentService: StudentService,
     private trainerService: TrainerService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private router: Router
   ) {
     this.fetchTrainerCount();
     this.fetchStudentCount();
-    this.loadMediaList(); // Load uploaded media on init
+    this.loadMediaList(); 
   }
 
   // Fetch student count
@@ -88,7 +88,10 @@ export class Dashboard {
   }
   logout() {
     console.log("Logout clicked");
-    // Add your logout logic here
+    localStorage.clear(); 
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+
   }
 
   // Media selection

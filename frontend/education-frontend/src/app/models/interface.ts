@@ -8,6 +8,8 @@ role: string; // "ADMIN" | "TRAINER" | "STUDENT"
 export interface LoginResponse {
 token: string; // JWT token (optional if you use HttpOnly cookie)
 role: string; // returned role (e.g. "ADMIN")
+id :string;
+name:string;
 }
 
 
@@ -18,7 +20,7 @@ export interface Student {
   email: string;
   password: string;
   mobileNo: number;
-  class: string;
+  studentClass: string;
 }
 
 export interface Trainer {

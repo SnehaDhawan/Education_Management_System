@@ -10,110 +10,55 @@ import { LoginRequest } from '../models/interface';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './login.html',
-  styleUrls: ['./login.css']
+  styleUrls: ['./login.css'],
 })
-// export class Login {
-// forgotPassword() {
-// throw new Error('Method not implemented.');
-// }
-
-// email = '';
-// password = '';
-// role = '';
-// hide = true;
-// loading = false;
-// error = '';
-
-
-// constructor(private auth: AuthService, private router: Router) {}
-
-
-// login() {
-// this.error = '';
-// if (!this.role) { this.error = 'Please select a role'; return; }
-
-
-// const req: LoginRequest = { email: this.email, password: this.password, role: this.role };
-// this.loading = true;
-
-
-// this.auth.login(req).subscribe({
-// next: (res) => {
-// this.loading = false;
-// // if backend provides token in response, store it
-// if (res.token) localStorage.setItem('token', res.token);
-// localStorage.setItem('role', res.role);
-// const route = this.getDashboardRoute(res.role);
-// this.router.navigate([route]);
-// },
-// error: (err) => {
-// this.loading = false;
-// this.error = err?.error?.message || err?.message || 'Login failed';
-// }
-// });
-// }
-
-
-// private getDashboardRoute(role: string) {
-// const r = (role || '').toUpperCase();
-// if (r === 'ADMIN') return '/admin/dashboard';
-// if (r === 'TRAINER') return '/trainer/dashboard';
-// return '/student/dashboard';
-// }
-// }
-
-
-
-
-// function forgotPassword() {
-//   throw new Error('Function not implemented.');
-// }
-
-
 
 export class Login {
-
- email = '';
+  email = '';
   password = '';
   role = '';
   hide = true;
   loading = false;
   error = '';
 
-  // Forgot/OTP/reset states
   forgotMode = false;
   otpMode = false;
   resetMode = false;
   newPassword = '';
   otp = '';
-
   constructor(private auth: AuthService, private router: Router) {}
 
-  // ------------ LOGIN ------------
-  login() {
-    this.error = '';
-    if (!this.role) {
-      this.error = 'Please select a role';
-      return;
-    }
 
-    const req: LoginRequest = { email: this.email, password: this.password, role: this.role };
-    this.loading = true;
-
-    this.auth.login(req).subscribe({
-      next: (res) => {
-        this.loading = false;
-        if (res.token) localStorage.setItem('token', res.token);
-        localStorage.setItem('role', res.role);
-        const route = this.getDashboardRoute(res.role);
-        this.router.navigate([route]);
-      },
-      error: (err) => {
-        this.loading = false;
-        this.error = err?.error?.message || err?.message || 'Login failed';
-      }
-    });
+login() {
+  this.error = '';
+  if (!this.role) {
+    this.error = 'Please select a role';
+    return;
   }
+  const req: LoginRequest = { email: this.email, password: this.password, role: this.role };
+  this.loading = true;
+  this.auth.login(req).subscribe({
+    next: (res) => {
+      this.loading = false;
+      console.log("response", res);
+
+      if (res.token) {
+  localStorage.setItem('token', res.token);
+  localStorage.setItem('role', res.role);
+  localStorage.setItem('id', res.id.toString());
+  localStorage.setItem('name', res.name);
+}
+      const route = this.getDashboardRoute(res.role);
+      this.router.navigate([route]);
+    },
+    error: (err) => {
+      this.loading = false;
+      this.error = err?.error?.message || err?.message || 'Login failed';
+    },
+  });
+}
+
+
 
   private getDashboardRoute(role: string) {
     const r = (role || '').toUpperCase();
@@ -131,23 +76,28 @@ export class Login {
     this.error = '';
   }
 
-  // Step 1: Send OTP
+
   sendOtp() {
-    debugger
     if (!this.email || !this.role) {
       this.error = 'Please enter email and role';
       return;
     }
+
     this.auth.sendOtp(this.email, this.role).subscribe({
       next: (res: any) => {
         alert(res.message);
-        this.otpMode = true; // show OTP input
+        this.otpMode = true; 
         this.forgotMode = false;
         this.resetMode = false;
+        this.error = ''; 
       },
       error: (err: any) => {
-        this.error = err?.error?.message || 'Failed to send OTP';
-      }
+        const msg = err?.error?.message || 'Failed to send OTP';
+        alert(msg);
+        this.email='';
+        this.role='';
+        this.otpMode = false;
+      },
     });
   }
 
@@ -160,12 +110,12 @@ export class Login {
     this.auth.verifyOtp(this.email, this.otp).subscribe({
       next: (res: any) => {
         alert(res.message);
-        this.resetMode = true;  // allow new password input
+        this.resetMode = true; // allow new password input
         this.otpMode = false;
       },
       error: (err: any) => {
         this.error = err?.error?.message || 'Invalid OTP';
-      }
+      },
     });
   }
 
@@ -188,7 +138,7 @@ export class Login {
       },
       error: (err: any) => {
         this.error = err?.error?.message || 'Failed to reset password';
-      }
+      },
     });
   }
 
@@ -202,6 +152,4 @@ export class Login {
     this.newPassword = '';
     this.otp = '';
   }
-
-
 }

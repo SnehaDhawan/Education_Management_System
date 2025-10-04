@@ -31,6 +31,6 @@ public class Student {
     @Column(name = "mobile_no", nullable = false, unique = true)
     private Long mobileNo;
 
-    @Column(name = "`class`", nullable = false, length = 255)  // Escaped class keyword
+    @Column(name = "`studentBatch`", nullable = false, length = 255)  // Escaped class keyword
     private String studentClass;
 }

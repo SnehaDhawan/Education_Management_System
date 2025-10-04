@@ -43,6 +43,48 @@ public class AuthService {
     @Autowired
     private JavaMailSender mailSender;
 
+//    public LoginResponse login(LoginRequest request) {
+//        String role = request.getRole().toUpperCase();
+//        String email = request.getEmail();
+//        String password = request.getPassword();
+//
+//        switch (role) {
+//            case "ADMIN":
+//                Admin admin = adminRepo.findByEmailId(email)
+//                        .orElseThrow(() -> new RuntimeException("Admin not found"));
+//
+//                if (admin.getPassword().equals(password)) {
+//                    String token = jwtUtil.generateToken(email, role);
+//                    return new LoginResponse(token, role);
+//                } else {
+//                    throw new RuntimeException("Invalid Admin credentials");
+//                }
+//
+//                case "STUDENT":
+//                Student student = studentRepo.findByEmail(email)
+//                        .orElseThrow(() -> new RuntimeException("Student not found"));
+//                if (student.getPassword().equals(password)) {
+//                    String token = jwtUtil.generateToken(email, role);
+//                    return new LoginResponse(token, role);
+//                } else {
+//                    throw new RuntimeException("Invalid Student credentials");
+//                }
+//
+//            case "TRAINER":
+//                Trainer trainer = trainerRepo.findByEmail(email)
+//                        .orElseThrow(() -> new RuntimeException("Trainer not found"));
+//                if (trainer.getPassword().equals(password)) {
+//                    String token = jwtUtil.generateToken(email, role);
+//                    return new LoginResponse(token, role);
+//                } else {
+//                    throw new RuntimeException("Invalid Trainer credentials");
+//                }
+//            default:
+//                throw new RuntimeException("Invalid role");
+//        }
+//    }
+
+
     public LoginResponse login(LoginRequest request) {
         String role = request.getRole().toUpperCase();
         String email = request.getEmail();
@@ -55,29 +97,18 @@ public class AuthService {
 
                 if (admin.getPassword().equals(password)) {
                     String token = jwtUtil.generateToken(email, role);
-                    return new LoginResponse(token, role);
+                    return new LoginResponse(token, role, admin.getAdminId(), admin.getUsername());
                 } else {
                     throw new RuntimeException("Invalid Admin credentials");
                 }
-//            case "STUDENT":
-//                return studentRepo.findByEmail(email)
-//                        .filter(s -> passwordEncoder.matches(password, s.getPassword()))
-//                        .map(s -> new LoginResponse(jwtUtil.generateToken(email, role), role))
-//                        .orElseThrow(() -> new RuntimeException("Invalid Student credentials"));
-//
-//            case "TRAINER":
-//                return trainerRepo.findByEmail(email)
-//                        .filter(t -> passwordEncoder.matches(password, t.getPassword()))
-//                        .map(t -> new LoginResponse(jwtUtil.generateToken(email, role), role))
-//                        .orElseThrow(() -> new RuntimeException("Invalid Trainer credentials"));
-
 
             case "STUDENT":
                 Student student = studentRepo.findByEmail(email)
                         .orElseThrow(() -> new RuntimeException("Student not found"));
+
                 if (student.getPassword().equals(password)) {
                     String token = jwtUtil.generateToken(email, role);
-                    return new LoginResponse(token, role);
+                    return new LoginResponse(token, role, student.getStudentId(), student.getStudentName());
                 } else {
                     throw new RuntimeException("Invalid Student credentials");
                 }
@@ -85,18 +116,19 @@ public class AuthService {
             case "TRAINER":
                 Trainer trainer = trainerRepo.findByEmail(email)
                         .orElseThrow(() -> new RuntimeException("Trainer not found"));
+
                 if (trainer.getPassword().equals(password)) {
                     String token = jwtUtil.generateToken(email, role);
-                    return new LoginResponse(token, role);
+                    return new LoginResponse(token, role, trainer.getTrainerId(), trainer.getTrainerName());
                 } else {
                     throw new RuntimeException("Invalid Trainer credentials");
                 }
-
 
             default:
                 throw new RuntimeException("Invalid role");
         }
     }
+
 
     public boolean updatePassword(String email, String role, String newPassword) {
         switch (role.toUpperCase()) {

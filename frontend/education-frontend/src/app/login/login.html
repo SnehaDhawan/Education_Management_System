@@ -1,38 +1,3 @@
-<!-- <div class="login-page">
-<div class="card">
-<h2>Sign in</h2>
-
-
-<form (ngSubmit)="login()" #loginForm="ngForm" class="form">
-<label>Email</label>
-<input name="email" type="email" [(ngModel)]="email" required />
-
-
-<label>Password</label>
-<div class="pw-wrap">
-<input name="password" [type]="hide ? 'password' : 'text'" [(ngModel)]="password" required minlength="4" />
-<button type="button" class="toggle" (click)="hide = !hide">{{ hide ? 'Show' : 'Hide' }}</button>
-</div>
-
-
-<label>Role</label>
-<select name="role" [(ngModel)]="role" required>
-<option value="">-- Select role --</option>
-<option value="STUDENT">Student</option>
-<option value="TRAINER">Trainer</option>
-<option value="ADMIN">Admin</option>
-</select>
-
-
-<div class="actions">
-<button type="submit" [disabled]="loginForm.invalid || loading">{{ loading ? 'Signing in...' : 'Login' }}</button>
-</div>
-
-
-<div class="error" *ngIf="error">{{ error }}</div>
-</form>
-</div>
-</div> -->
 
 <div class="login-page">
   <div class="card">
@@ -42,14 +7,20 @@
     <h2 *ngIf="resetMode">Reset Password</h2>
 
     <!-- LOGIN FORM -->
-    <form *ngIf="!forgotMode && !otpMode && !resetMode" (ngSubmit)="login()" #loginForm="ngForm" class="form">
+    <form *ngIf="!forgotMode && !otpMode && !resetMode"
+          (ngSubmit)="login()"
+          #loginForm="ngForm"
+          class="form">
       <label>Email</label>
       <input name="email" type="email" [(ngModel)]="email" required />
 
       <label>Password</label>
       <div class="pw-wrap">
-        <input name="password" [type]="hide ? 'password' : 'text'" [(ngModel)]="password" required minlength="4" />
-        <button type="button" class="toggle" (click)="hide = !hide">{{ hide ? 'Show' : 'Hide' }}</button>
+        <input name="password" [type]="hide ? 'password' : 'text'"
+               [(ngModel)]="password" required minlength="4" />
+        <button type="button" class="toggle" (click)="hide = !hide">
+          {{ hide ? 'Show' : 'Hide' }}
+        </button>
       </div>
 
       <label>Role</label>
@@ -61,7 +32,12 @@
       </select>
 
       <div class="actions">
-        <button type="submit" [disabled]="loginForm.invalid || loading">{{ loading ? 'Signing in...' : 'Login' }}</button>
+        <!-- primary = login -->
+        <button type="submit"
+                class="btn btn-primary"
+                [disabled]="loginForm.invalid || loading">
+          {{ loading ? 'Signing in...' : 'Login' }}
+        </button>
       </div>
 
       <div class="forgot-password">
@@ -72,7 +48,10 @@
     </form>
 
     <!-- FORGOT PASSWORD FORM -->
-    <form *ngIf="forgotMode && !otpMode && !resetMode" (ngSubmit)="sendOtp()" class="form">
+    <form *ngIf="forgotMode && !otpMode && !resetMode"
+          (ngSubmit)="sendOtp()"
+          #forgotForm="ngForm"
+          class="form">
       <label>Email</label>
       <input name="email" type="email" [(ngModel)]="email" required />
 
@@ -85,30 +64,56 @@
       </select>
 
       <div class="actions">
-        <button type="submit">Send OTP</button><br>
-        <button type="button" (click)="cancelForgot()">Cancel</button>
+        <!-- green = send OTP -->
+        <button type="submit" class="btn btn-success"
+                [disabled]="forgotForm.invalid || loading">
+          {{ loading ? 'Sending...' : 'Send OTP' }}
+        </button>
+
+        <!-- cancel -->
+        <button type="button" class="btn btn-cancel" (click)="cancelForgot()">
+          Cancel
+        </button>
       </div>
     </form>
 
     <!-- OTP FORM -->
-    <form *ngIf="otpMode" (ngSubmit)="verifyOtp()" class="form">
+    <form *ngIf="otpMode"
+          (ngSubmit)="verifyOtp()"
+          #otpForm="ngForm"
+          class="form">
       <label>Enter OTP</label>
       <input name="otp" type="text" [(ngModel)]="otp" required />
 
       <div class="actions">
-        <button type="submit">Verify OTP</button><br>
-        <button type="button" (click)="cancelForgot()">Cancel</button>
+        <button type="submit" class="btn btn-primary"
+                [disabled]="otpForm.invalid || loading">
+          Verify OTP
+        </button>
+
+        <button type="button" class="btn btn-cancel" (click)="cancelForgot()">
+          Cancel
+        </button>
       </div>
     </form>
 
     <!-- RESET PASSWORD FORM -->
-    <form *ngIf="resetMode" (ngSubmit)="sendForgotRequest()" class="form">
+    <form *ngIf="resetMode"
+          (ngSubmit)="sendForgotRequest()"
+          #resetForm="ngForm"
+          class="form">
       <label>New Password</label>
       <input name="newPassword" type="password" [(ngModel)]="newPassword" required minlength="4" />
 
       <div class="actions">
-        <button type="submit">Change Password</button><br>
-        <button type="button" (click)="cancelForgot()">Cancel</button>
+        <button type="submit" class="btn btn-success"
+                [disabled]="resetForm.invalid || loading">
+          Change Password
+        </button>
+
+        <button type="button" class="btn btn-cancel" (click)="cancelForgot()">
+          Cancel
+        </button>
       </div>
     </form>
   </div>

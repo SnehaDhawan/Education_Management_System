@@ -6,22 +6,21 @@
     <a (click)="showPage('students')">Students</a>
     <a (click)="showPage('trainers')">Trainers</a>
     <a (click)="showPage('batches')">Batches</a>
-    <a (click)="showPage('reports')">Reports</a>
+    <!-- <a (click)="showPage('reports')">Reports</a> -->
     <a (click)="showPage('media')">Media</a>
   </div>
 
   <!-- Main Content -->
   <div class="main">
-    <!-- Top Navbar -->
+  
     <div class="toolbar">
       <span class="title">Admin Dashboard</span>
       <div class="spacer"></div>
       <button (click)="logout()">Logout</button>
     </div>
 
-    <!-- Page Content -->
     <div class="content">
-      <!-- Dashboard Page -->
+    
       <div *ngIf="activePage === 'dashboard'">
         <h2>Welcome, Admin 👋</h2>
         <p>Here you can manage users, view reports, and update settings.</p>
@@ -34,10 +33,10 @@
             <h3>Active Trainers</h3>
             <p>{{ trainerCount }}</p>
           </div>
-          <div class="card">
+          <!-- <div class="card">
             <h3>Reports</h3>
             <p>{{ reports }}</p>
-          </div>
+          </div> -->
         </div>
       </div>
 
