@@ -32,5 +32,5 @@ public class Student {
     private Long mobileNo;
 
     @Column(name = "batch_id", nullable = false, length = 255)  // Escaped class keyword
-    private String batch_id;
+    private String batchId;
 }

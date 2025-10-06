@@ -20,7 +20,7 @@ export interface Student {
   email: string;
   password: string;
   mobileNo: number;
-  studentClass: string;
+  batchId: string;
 }
 
 export interface Trainer {
@@ -30,6 +30,7 @@ export interface Trainer {
   password: string;
   mobileNo: number;
   specialization: string;
+  batchId: string; // link batch
 }
 
 

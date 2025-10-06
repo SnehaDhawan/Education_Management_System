@@ -21,10 +21,7 @@ public class StudentRequest {
     @JsonProperty("mobileNo")
     private Long mobileNo;
 
-    @JsonProperty("class")
-    private String studentClass;
-
-
-
+    @JsonProperty("batchId")
+    private String batchId;
 
 }

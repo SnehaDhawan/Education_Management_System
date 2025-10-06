@@ -31,7 +31,7 @@ public class StudentService
         student.setEmail(studentRequest.getEmail());
         student.setPassword(studentRequest.getPassword()); // TODO: encrypt later
         student.setMobileNo(studentRequest.getMobileNo());
-        student.setBatch_id(studentRequest.getStudentClass());
+        student.setBatchId(studentRequest.getBatchId());
         String generatedCode = codeGenerate.generateCode("students", "student_id","STU");
         student.setStudentId(generatedCode);
         studentRepository.save(student);
@@ -59,7 +59,7 @@ public class StudentService
         existingStudent.setEmail(studentDetails.getEmail());
         existingStudent.setPassword(studentDetails.getPassword());
         existingStudent.setMobileNo(studentDetails.getMobileNo());
-        existingStudent.setBatch_id(studentDetails.getBatch_id());
+        existingStudent.setBatchId(studentDetails.getBatchId());
         return studentRepository.save(existingStudent);
     }
 

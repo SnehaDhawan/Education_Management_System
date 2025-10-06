@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Student } from '../../../../models/interface';
+import { Batch, Student } from '../../../../models/interface';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { BatchService } from '../../../../services/batch.service';
 import { StudentService } from '../../../../services/student.service';
 
 @Component({
@@ -23,10 +24,15 @@ export class StudentCreateComponent implements OnInit {
     email: '',
     password: '',
     mobileNo: 0,
-    studentClass: ''
+    batchId: ''
   };
+   // Array to populate batch dropdown
+    batches: Batch[] = [];
 
-  constructor(private studentService: StudentService) {}
+  constructor(
+    private studentService: StudentService,
+    private batchService: BatchService
+) {}
   
 
 
@@ -34,8 +40,17 @@ ngOnInit(): void {
     if (this.selectedStudent) {
       this.formStudent = { ...this.selectedStudent };
     }
+    this.loadBatches();
   }
 
+    loadBatches() {
+    // Load batches for dropdown
+    this.batchService.getAllBatches().subscribe({
+      next: (data: Batch[]) => this.batches = data,
+      error: (err) => console.error('Error fetching batches:', err)
+    });
+    console.log(this.batches);
+  }
 
 onSubmit(form: NgForm) {
   // Custom validation
@@ -61,6 +76,7 @@ onSubmit(form: NgForm) {
   }
 
   if (form.valid) {
+    debugger
     if(this.formStudent.studentId) {
       // ✅ Update existing student
       this.studentService.updateStudent(this.formStudent).subscribe({
@@ -104,7 +120,7 @@ closeForm(student?: Student) {
     email: '',
     password: '',
     mobileNo: 0,
-    studentClass: ''
+    batchId: ''
   };
 }
 

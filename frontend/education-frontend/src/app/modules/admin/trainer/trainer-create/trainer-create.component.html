@@ -6,34 +6,18 @@
 
     <div class="form-group">
       <label>Trainer Id</label>
-      <input
-        type="text"
-        [(ngModel)]="formTrainer.trainerId"
-        name="trainerId"
-        readonly
-      />
+      <input type="text" [(ngModel)]="formTrainer.trainerId" name="trainerId" readonly />
     </div>
 
     <div class="form-group">
       <label>Name</label>
-      <input
-        type="text"
-        [(ngModel)]="formTrainer.trainerName"
-        name="trainerName"
-        required
-      />
+      <input type="text" [(ngModel)]="formTrainer.trainerName" name="trainerName" required />
     </div>
 
     <div class="form-group">
       <label>Email</label>
-      <input
-        type="email"
-        [(ngModel)]="formTrainer.email"
-        name="email"
-        required
-        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-        #email="ngModel"
-      />
+      <input type="email" [(ngModel)]="formTrainer.email" name="email" required
+        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #email="ngModel" />
       <div *ngIf="email.invalid && email.touched" class="error">
         Please enter a valid email address.
       </div>
@@ -41,14 +25,8 @@
 
     <div class="form-group">
       <label>Password</label>
-      <input
-        type="password"
-        [(ngModel)]="formTrainer.password"
-        name="password"
-        required
-        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
-        #password="ngModel"
-      />
+      <input type="password" [(ngModel)]="formTrainer.password" name="password" required
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$" #password="ngModel" />
       <div *ngIf="password.invalid && password.touched" class="error">
         Password must be at least 8 characters, include uppercase, lowercase, number, and special character.
       </div>
@@ -56,14 +34,8 @@
 
     <div class="form-group">
       <label>Mobile No</label>
-      <input
-        type="number"
-        [(ngModel)]="formTrainer.mobileNo"
-        name="mobileNo"
-        required
-        pattern="^[6-9][0-9]{9}$"
-        #mobileNo="ngModel"
-      />
+      <input type="number" [(ngModel)]="formTrainer.mobileNo" name="mobileNo" required pattern="^[6-9][0-9]{9}$"
+        #mobileNo="ngModel" />
       <div *ngIf="mobileNo.invalid && mobileNo.touched" class="error">
         Mobile number must be 10 digits and start with 6, 7, 8, or 9.
       </div>
@@ -71,13 +43,20 @@
 
     <div class="form-group">
       <label>Specialization</label>
-      <input
-        type="text"
-        [(ngModel)]="formTrainer.specialization"
-        name="specialization"
-        required
-      />
+      <input type="text" [(ngModel)]="formTrainer.specialization" name="specialization" required />
     </div>
+
+    <div class="form-group">
+      <label for="batch">Batch:</label>
+      <select id="batch" [(ngModel)]="formTrainer.batchId" name="batchId" required>
+        <option value="" disabled selected>Select Batch</option>
+        <option *ngFor="let batch of batches" [value]="batch.batchId">
+          {{ batch.batchName }}
+        </option>
+      </select>
+    </div>
+
+
 
     <button type="submit" class="btn save-btn">
       {{ formTrainer.trainerId ? "Update" : "Create" }}
