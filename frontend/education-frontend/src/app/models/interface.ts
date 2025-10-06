@@ -43,3 +43,14 @@ export interface Batch {
   course:string;
   schedule :string;
 }
+
+
+export interface TaskAssign {
+  id?: number;
+  task: string;
+  taskName: string;
+  assignedDate: string;
+  dueDate: string;
+  trainerId: number;
+  batchId: number;
+}
