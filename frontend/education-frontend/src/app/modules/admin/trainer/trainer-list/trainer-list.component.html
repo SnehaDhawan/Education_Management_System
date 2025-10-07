@@ -8,6 +8,7 @@
         <th>Email</th>
         <th>Mobile No</th>
         <th>Specialization</th>
+        <th>Batch</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -18,8 +19,8 @@
           <td>{{ t.email }}</td>
           <td>{{ t.mobileNo }}</td>
           <td>{{ t.specialization }}</td>
+          <td>{{ t.batchId }}</td>
           <td>
-            <button class="btn view-btn" (click)="showTrainerInfo(t)">View</button>
             <button class="btn edit-btn" (click)="editTrainer(t)">Edit</button>
             <button class="btn delete-btn" (click)="deleteTrainer(t.trainerId)">
               Delete
@@ -28,32 +29,10 @@
       </tr>
     </tbody>
   </table>
+    </div>
 
-  <!-- ✅ Show Trainer Create/Update Form -->
   <app-trainer-create
     *ngIf="showForm"
     [selectedTrainer]="selectedTrainer"
     (formClosed)="closeForm($event)">
-  </app-trainer-create>
-  <!-- Trainer Info Modal/Section -->
-  <div *ngIf="infoTrainer" class="trainer-info-modal">
-    <div class="trainer-info-content">
-  <h3>Trainer Information</h3>
-  <p><strong>ID:</strong> {{ infoTrainer.trainerId }}</p>
-  <p><strong>Name:</strong> {{ infoTrainer.trainerName }}</p>
-  <p><strong>Email:</strong> {{ infoTrainer.email }}</p>
-  <p><strong>Mobile No:</strong> {{ infoTrainer.mobileNo }}</p>
-  <p><strong>Specialization:</strong> {{ infoTrainer.specialization }}</p>
-  <p><strong>Password:</strong> {{ infoTrainer.password }}</p>
-      <label for="batchSelect"><strong>Batch Allocation:</strong></label>
-      <select id="batchSelect" [(ngModel)]="selectedBatch" (change)="onBatchChange()">
-        <option value="">Select Batch</option>
-        <option value="Java">Java</option>
-        <option value="SQL">SQL</option>
-      </select>
-      <p *ngIf="selectedBatch"><strong>Allocated Batch:</strong> {{ selectedBatch }}</p>
-      <p *ngIf="batchTime"><strong>Allocation Time:</strong> {{ batchTime }}</p>
-  <button class="btn" (click)="closeTrainerInfo()">Close</button>
-    </div>
-  </div>
 

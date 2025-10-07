@@ -33,6 +33,7 @@ public class TrainerService {
         trainer.setPassword(trainerRequest.getPassword());
         trainer.setMobileNo(trainerRequest.getMobileNo());
         trainer.setSpecialization(trainerRequest.getSpecialization());
+        trainer.setBatchId(trainerRequest.getBatchId());
         String generatedCode = codeGenerate.generateCode("trainers", "trainer_id", "TRN");
         trainer.setTrainerId(generatedCode);
         trainerRepository.save(trainer);
@@ -67,7 +68,7 @@ public class TrainerService {
         existingTrainer.setPassword(trainerDetails.getPassword());
         existingTrainer.setMobileNo(trainerDetails.getMobileNo());
         existingTrainer.setSpecialization(trainerDetails.getSpecialization());
-
+        existingTrainer.setBatchId(trainerDetails.getBatchId());
         return trainerRepository.save(existingTrainer);
     }
 

@@ -36,8 +36,8 @@ public class Trainer {
     @Column(name = "subject_specialization", nullable = false)
     private String specialization;
 
-    @Column(name = "`batch_id`", nullable = false, length = 255)  // Escaped class keyword
-    private String batch_id;
+    @Column(name = "batchId", nullable = false, length = 255)  // Escaped class keyword
+    private String batchId;
 
 
 }

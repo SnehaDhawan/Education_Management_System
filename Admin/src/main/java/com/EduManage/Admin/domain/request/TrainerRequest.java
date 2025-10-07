@@ -23,4 +23,8 @@ public class TrainerRequest {
 
     @JsonProperty("specialization")
     private String specialization;
+
+    @JsonProperty("batchId")
+    private String batchId;
+
 }

@@ -26,8 +26,7 @@ public class TaskAssign {
 
     @Column(name = "task_Name", nullable = false)
     private  String taskName;
-
-
+    
     @Column(name = "assignedDate")
     private LocalDate assignedDate;
 
