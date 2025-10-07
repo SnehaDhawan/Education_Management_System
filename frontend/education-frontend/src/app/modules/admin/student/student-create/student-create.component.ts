@@ -44,7 +44,6 @@ ngOnInit(): void {
   }
 
     loadBatches() {
-    // Load batches for dropdown
     this.batchService.getAllBatches().subscribe({
       next: (data: Batch[]) => this.batches = data,
       error: (err) => console.error('Error fetching batches:', err)
@@ -53,11 +52,9 @@ ngOnInit(): void {
   }
 
 onSubmit(form: NgForm) {
-  // Custom validation
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
   const mobilePattern = /^[6-9]\d{9}$/;
-
   const emailValid = emailPattern.test(this.formStudent.email);
   const passwordValid = passwordPattern.test(this.formStudent.password);
   const mobileValid = mobilePattern.test(this.formStudent.mobileNo.toString());
@@ -76,14 +73,12 @@ onSubmit(form: NgForm) {
   }
 
   if (form.valid) {
-    debugger
     if(this.formStudent.studentId) {
-      // ✅ Update existing student
       this.studentService.updateStudent(this.formStudent).subscribe({
         next: (res: any) => {
           console.log('Student updated successfully:', res);
           alert('Student updated successfully!');
-          this.closeForm(res); // emit updated student to parent
+          this.closeForm(res); 
         },
         error: (err) => {
           console.error('Error updating student:', err);

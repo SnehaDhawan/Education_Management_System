@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrainerService {
@@ -78,4 +79,10 @@ public class TrainerService {
                 .orElseThrow(() -> new RuntimeException("Trainer not found with id " + trainerId));
         trainerRepository.delete(trainer);
     }
+
+    public Optional<Trainer> getTrainerByTrainerId(String trainerId) {
+        return trainerRepository.findByTrainerId(trainerId);
+    }
 }
+
+

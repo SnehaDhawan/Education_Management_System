@@ -37,8 +37,6 @@ export interface Trainer {
 export interface Batch {
   batchId: string;
   batchName: string;
-  trainerId: string;   // link trainer
-  studentIds: string[]; // link multiple students
   startDate: string;
   endDate: string;
   course:string;

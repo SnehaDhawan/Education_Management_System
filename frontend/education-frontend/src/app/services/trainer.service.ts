@@ -40,6 +40,12 @@ constructor(private http: HttpClient) {}
       `${ApiLinks.baseLinkTrainer}${ApiLinks.deleteTrainer}/${trainerId}`
     );
   }
+
+    getTrainerById(trainerId: string): Observable<Trainer> {
+    return this.http.get<Trainer>(
+      `${ApiLinks.baseLinkTrainer}${ApiLinks.getByTrainerId}/${trainerId}`
+    );
+  }
 }
 
 

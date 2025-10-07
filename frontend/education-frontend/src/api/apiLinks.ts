@@ -11,5 +11,7 @@ export enum ApiLinks {
   createTrainer = "create",
   getAllTrainer = "getAll",
   deleteTrainer = "delete",
-  updateTrainer = "update"
+  updateTrainer = "update",
+  getByTrainerId ="getBy"
+
 }

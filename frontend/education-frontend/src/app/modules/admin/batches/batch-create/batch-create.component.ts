@@ -21,8 +21,6 @@ export class BatchCreateComponent implements OnInit {
   formBatch: Batch = {
     batchId: '',
     batchName: '',
-    trainerId: '',
-    studentIds: [],
     startDate: '',
     endDate: '',
     course: '',
@@ -69,8 +67,6 @@ export class BatchCreateComponent implements OnInit {
     this.formBatch = {
       batchId: '',
       batchName: '',
-      trainerId: '',
-      studentIds: [],
       startDate: '',
       endDate: '',
       course: '',

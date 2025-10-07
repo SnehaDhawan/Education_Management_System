@@ -1,0 +1,27 @@
+<div class="attendance-container">
+  <h3>Mark Attendance</h3>
+
+  <select [(ngModel)]="selectedBatch" class="dropdown">
+    <option value="" disabled>Select Batch</option>
+    <option *ngFor="let batch of batches" [value]="batch.batchId">{{ batch.batchName }}</option>
+  </select>
+
+  <div *ngIf="selectedBatch" class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Present</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of getStudentsForBatch(selectedBatch)">
+          <td>{{ student.studentName }}</td>
+          <td><input type="checkbox" [(ngModel)]="attendance[student.studentName]" /></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btn green" (click)="saveAttendance()">Save Attendance</button>
+  </div>
+</div>
