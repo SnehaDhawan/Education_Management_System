@@ -53,3 +53,12 @@ export interface TaskAssign {
   trainerId: number;
   batchId: number;
 }
+
+
+interface Attendance {
+  trainerId: string;
+  batchId: string;
+  studentId: string;
+  date: string; // yyyy-MM-dd
+  status: 'PRESENT' | 'ABSENT';
+}

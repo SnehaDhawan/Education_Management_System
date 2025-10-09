@@ -45,5 +45,9 @@ deleteStudent(studentId: string): Observable<void> {
 }
 
 
+  getStudentById(studentId: string): Observable<Student> {
+    return this.http.get<Student>(`${ApiLinks.baseLinkStudent}getBy/${studentId}`);
+  }
+
 
 }

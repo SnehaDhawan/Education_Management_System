@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService
@@ -68,6 +69,11 @@ public class StudentService
         Student student = studentRepository.findByStudentId(studentId)
                 .orElseThrow(() -> new RuntimeException("Student not found with id " + studentId));
         studentRepository.delete(student);
+    }
+
+
+    public Optional<Student> getStudentByStudentId(String studentId) {
+        return studentRepository.findByStudentId(studentId);
     }
 
 }

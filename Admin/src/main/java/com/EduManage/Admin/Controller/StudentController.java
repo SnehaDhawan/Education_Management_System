@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/student")
@@ -34,6 +35,19 @@ public class StudentController {
         List<Student> studentList = studentService.funGetStudentList();
         System.out.println(studentList);
         return new ResponseEntity<>(studentList, HttpStatus.OK);
+    }
+
+    @GetMapping("/getBy/{studentId}")
+    public ResponseEntity<?> getStudentByStudentId(@PathVariable String studentId) {
+        Optional<Student> student = studentService.getStudentByStudentId(studentId);
+
+        if (student.isPresent()) {
+            return new ResponseEntity<>(student.get(), HttpStatus.OK);
+        } else {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Student not found with ID: " + studentId);
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/update/{id}")

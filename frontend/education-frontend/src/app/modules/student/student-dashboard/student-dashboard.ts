@@ -1,18 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StudentService } from '../../../services/student.service';
+import { BatchService } from '../../../services/batch.service';
+import { Batch, Student } from '../../../models/interface';
+import { AttendanceService } from '../../../services/attendance.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './student-dashboard.html',
   styleUrl: './student-dashboard.css'
 })
 export class Dashboard implements OnInit{
-  constructor (private router: Router){};
+  constructor (private router: Router,
+     private studentService: StudentService,
+    private batchService: BatchService,
+    private attendanceService :AttendanceService
+  ){};
 
- activeTab = 'overview';
+activeTab = 'overview';
 studentName: string = '';
 
 
@@ -24,12 +33,7 @@ studentName: string = '';
 
   attendancePercent = 85;
   pendingTasks = 2;
-
-  attendanceRecords = [
-    { date: '2025-09-20', status: 'Present' },
-    { date: '2025-09-21', status: 'Absent' },
-    { date: '2025-09-22', status: 'Present' }
-  ];
+  attendanceRecords: any[] = [];
 
   taskList = [
     { title: 'Assignment 1', status: 'Pending' },
@@ -41,10 +45,62 @@ studentName: string = '';
     { task: 'Project Report', score: 'B+', feedback: 'Needs improvement' }
   ];
 
-   ngOnInit(): void {
+  studentId: string = '';
+  student!: Student;
+  batches: Batch[] = [];
+
+
+  ngOnInit(): void {
     this.studentName = localStorage.getItem('name') || '';
+    this.studentId = localStorage.getItem('id') || '';
+    this.loadStudent();
+    this.loadBatches();
+    this.loadAttendance();
   }
-  
+
+  loadStudent(): void {
+    if (this.studentId) {
+      this.studentService.getStudentById(this.studentId).subscribe({
+        next: (data: Student) => {
+          this.student = data;
+          console.log('Student loaded:', this.student);
+        },
+        error: (err) => {
+          console.error('Error loading student:', err);
+        }
+      });
+    } else {
+      console.warn('Student ID not found in localStorage.');
+    }
+  }
+
+  // 🔹 2. Load Batch for the logged-in Student
+  loadBatches(): void {
+    this.batchService.getAllBatches().subscribe({
+      next: (data: Batch[]) => {
+        // Filter batches linked to this student’s batchId
+        this.batches = data.filter(batch => batch.batchId === this.student.batchId);
+        console.log('Filtered Batches for Student:', this.batches);
+      },
+      error: (err) => {
+        console.error('Error fetching batches:', err);
+      }
+    });
+  }
+
+
+  loadAttendance() {
+  this.attendanceService.getAttendanceByStudentId(this.studentId).subscribe({
+    next: (data) => {
+      this.attendanceRecords = data;
+      console.log('Attendance Records:', this.attendanceRecords);
+    },
+    error: (err) => console.error('Error loading attendance:', err)
+  });
+}
+
+
+
 
   onFileSelected(event: any, task: any) {
     const file = event.target.files[0];

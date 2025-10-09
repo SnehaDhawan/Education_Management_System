@@ -17,7 +17,7 @@
       <tbody>
         <tr *ngFor="let student of getStudentsForBatch(selectedBatch)">
           <td>{{ student.studentName }}</td>
-          <td><input type="checkbox" [(ngModel)]="attendance[student.studentName]" /></td>
+          <td><input type="checkbox" [(ngModel)]="attendance[student.studentId]" /></td>
         </tr>
       </tbody>
     </table>

@@ -46,6 +46,7 @@ export class Dashboard implements OnInit {
     this.loadBatches();
   }
 
+  
 
   loadTrainer(): void {
     if(this.trainerId) {
@@ -62,6 +63,8 @@ export class Dashboard implements OnInit {
       console.warn('Trainer ID not found in localStorage.');
     }
   }
+
+
 loadBatches() {
   this.batchService.getAllBatches().subscribe({
     next: (data: Batch[]) => {
