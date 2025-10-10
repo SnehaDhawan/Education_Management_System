@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="41ddc677-bfaa-488f-b407-6ac60d05acb3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Admin/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Admin/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Admin/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Admin/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Admin/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Admin/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/Controller/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/Controller/StudentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/Controller/TrainerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/Controller/TrainerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/domain/entity/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/domain/entity/Student.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/domain/entity/Trainer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/domain/entity/Trainer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/domain/request/StudentRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/domain/request/StudentRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/domain/request/TrainerRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/domain/request/TrainerRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/service/StudentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/service/StudentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/service/TrainerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Admin/target/classes/com/EduManage/Admin/service/TrainerService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Authentication/src/main/java/com/EduManage/Authentication/entity/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Authentication/src/main/java/com/EduManage/Authentication/entity/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.ask.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.edit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/HELP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/EduManage/Education_Management_System/EducationManagementSystemApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/EduManage/Education_Management_System/EducationManagementSystemApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="33rpTW8rdnnl7ITlkhnbkZ6L95h" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="41ddc677-bfaa-488f-b407-6ac60d05acb3" name="Changes" comment="" />
+      <created>1760085053077</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1760085053077</updated>
+    </task>
+    <servers />
+  </component>
+</project>
