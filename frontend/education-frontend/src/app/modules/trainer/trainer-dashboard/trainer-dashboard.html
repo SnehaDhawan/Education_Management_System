@@ -56,35 +56,13 @@
       </table>
     </section>
 
-    <!-- <section *ngIf="activeTab==='tasks'" class="content">
-      <h3>Assign Task</h3>
-      <select [(ngModel)]="taskBatch" class="dropdown">
-        <option value="" disabled>Select Batch</option>
-        <option *ngFor="let batch of todayBatches" [value]="batch.name">{{ batch.name }}</option>
-      </select>
-
-      <div *ngIf="taskBatch">
-        <textarea [(ngModel)]="newTask" placeholder="Enter task details..." class="task-box"></textarea>
-        <button class="btn blue" (click)="assignTask()">Assign Task</button>
-
-        <h4>Students in {{ taskBatch }}</h4>
-        <ul>
-          <li *ngFor="let student of getStudentsForBatch(taskBatch)">
-            {{ student }}
-          </li>
-        </ul>
-
-        <h3 class="mt">Pending Tasks</h3>
-        <ul class="task-list">
-          <li *ngFor="let task of pendingTaskList">{{ task.student }} - {{ task.title }}</li>
-        </ul>
-      </div>
-    </section> -->
+    
 
 
     <div *ngIf="activeTab==='attendance'">
-       <app-attendance  [trainerId]="trainerId" [batchId]="trainer.batchId"></app-attendance>
-    </div>
+  <app-attendance [trainerId]="trainerId" [batchId]="trainer.batchId"></app-attendance>
+</div>
+
 
 
     <section *ngIf="activeTab==='reports'" class="content">

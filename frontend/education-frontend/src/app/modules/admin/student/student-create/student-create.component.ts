@@ -2,8 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Batch, Student } from '../../../../models/interface';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BatchService } from '../../../../services/batch.service';
-import { StudentService } from '../../../../services/student.service';
+import { ApiService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-student-create',
@@ -17,7 +16,6 @@ export class StudentCreateComponent implements OnInit {
 @Input() selectedStudent: Student | null = null;
 
 
-  // ✅ Use ONLY this object everywhere
   formStudent: Student = {
     studentId: '',
     studentName: '',
@@ -30,8 +28,7 @@ export class StudentCreateComponent implements OnInit {
     batches: Batch[] = [];
 
   constructor(
-    private studentService: StudentService,
-    private batchService: BatchService
+    private apiService:ApiService,
 ) {}
   
 
@@ -44,7 +41,7 @@ ngOnInit(): void {
   }
 
     loadBatches() {
-    this.batchService.getAllBatches().subscribe({
+    this.apiService.getAllBatches().subscribe({
       next: (data: Batch[]) => this.batches = data,
       error: (err) => console.error('Error fetching batches:', err)
     });
@@ -74,7 +71,7 @@ onSubmit(form: NgForm) {
 
   if (form.valid) {
     if(this.formStudent.studentId) {
-      this.studentService.updateStudent(this.formStudent).subscribe({
+      this.apiService.updateStudent(this.formStudent).subscribe({
         next: (res: any) => {
           console.log('Student updated successfully:', res);
           alert('Student updated successfully!');
@@ -88,7 +85,7 @@ onSubmit(form: NgForm) {
     } 
     
     else {
-      this.studentService.createStudent(this.formStudent).subscribe({
+      this.apiService.createStudent(this.formStudent).subscribe({
         next: (res: any) => {
           console.log('Student created successfully:', res);
           alert('Student created successfully!');
@@ -103,12 +100,9 @@ onSubmit(form: NgForm) {
   }
 }
 
-  
-// Accept optional student parameter
 closeForm(student?: Student) {
-  this.formClosed.emit(student || null); // emit student if present, otherwise null
+  this.formClosed.emit(student || null); 
 
-  // Reset formStudent
   this.formStudent = {
     studentId: '',
     studentName: '',

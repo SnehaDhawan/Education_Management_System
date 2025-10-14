@@ -2,10 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { StudentService } from '../../../services/student.service';
-import { BatchService } from '../../../services/batch.service';
 import { Batch, Student } from '../../../models/interface';
-import { AttendanceService } from '../../../services/attendance.service';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,9 +14,8 @@ import { AttendanceService } from '../../../services/attendance.service';
 })
 export class Dashboard implements OnInit{
   constructor (private router: Router,
-     private studentService: StudentService,
-    private batchService: BatchService,
-    private attendanceService :AttendanceService
+     private apiService: ApiService,
+   
   ){};
 
 activeTab = 'overview';
@@ -60,7 +57,7 @@ studentName: string = '';
 
   loadStudent(): void {
     if (this.studentId) {
-      this.studentService.getStudentById(this.studentId).subscribe({
+      this.apiService.getStudentById(this.studentId).subscribe({
         next: (data: Student) => {
           this.student = data;
           console.log('Student loaded:', this.student);
@@ -74,9 +71,8 @@ studentName: string = '';
     }
   }
 
-  // 🔹 2. Load Batch for the logged-in Student
   loadBatches(): void {
-    this.batchService.getAllBatches().subscribe({
+    this.apiService.getAllBatches().subscribe({
       next: (data: Batch[]) => {
         // Filter batches linked to this student’s batchId
         this.batches = data.filter(batch => batch.batchId === this.student.batchId);
@@ -88,9 +84,8 @@ studentName: string = '';
     });
   }
 
-
   loadAttendance() {
-  this.attendanceService.getAttendanceByStudentId(this.studentId).subscribe({
+  this.apiService.getAttendanceByStudentId(this.studentId).subscribe({
     next: (data) => {
       this.attendanceRecords = data;
       console.log('Attendance Records:', this.attendanceRecords);
@@ -98,9 +93,6 @@ studentName: string = '';
     error: (err) => console.error('Error loading attendance:', err)
   });
 }
-
-
-
 
   onFileSelected(event: any, task: any) {
     const file = event.target.files[0];

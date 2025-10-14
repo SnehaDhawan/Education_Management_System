@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
 import { LoginRequest } from '../models/interface';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'login',
@@ -26,7 +26,7 @@ export class Login {
   resetMode = false;
   newPassword = '';
   otp = '';
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private apiService: ApiService, private router: Router) {}
 
 
 login() {
@@ -37,7 +37,7 @@ login() {
   }
   const req: LoginRequest = { email: this.email, password: this.password, role: this.role };
   this.loading = true;
-  this.auth.login(req).subscribe({
+  this.apiService.login(req).subscribe({
     next: (res) => {
       this.loading = false;
       console.log("response", res);
@@ -83,7 +83,7 @@ login() {
       return;
     }
 
-    this.auth.sendOtp(this.email, this.role).subscribe({
+    this.apiService.sendOtp(this.email, this.role).subscribe({
       next: (res: any) => {
         alert(res.message);
         this.otpMode = true; 
@@ -107,7 +107,7 @@ login() {
       this.error = 'Please enter OTP';
       return;
     }
-    this.auth.verifyOtp(this.email, this.otp).subscribe({
+    this.apiService.verifyOtp(this.email, this.otp).subscribe({
       next: (res: any) => {
         alert(res.message);
         this.resetMode = true; // allow new password input
@@ -125,7 +125,7 @@ login() {
       this.error = 'Please enter new password';
       return;
     }
-    this.auth.updatePassword(this.email, this.role, this.newPassword).subscribe({
+    this.apiService.updatePassword(this.email, this.role, this.newPassword).subscribe({
       next: (res: any) => {
         alert(res.message);
         this.forgotMode = false;

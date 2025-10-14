@@ -55,10 +55,16 @@ export interface TaskAssign {
 }
 
 
-interface Attendance {
+export interface Attendance {
   trainerId: string;
   batchId: string;
   studentId: string;
   date: string; // yyyy-MM-dd
   status: 'PRESENT' | 'ABSENT';
 }
+
+
+export const environment = {
+  production: false,
+  apiBaseUrl: 'http://localhost:8080' 
+};

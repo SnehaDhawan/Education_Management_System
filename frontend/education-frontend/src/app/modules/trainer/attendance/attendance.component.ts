@@ -1,11 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Batch, Student, Trainer } from '../../../models/interface';
-import { BatchService } from '../../../services/batch.service';
-import { StudentService } from '../../../services/student.service';
-import { Attendance } from '../../student/attendance/attendance';
-import { AttendanceService } from '../../../services/attendance.service';
+import { Attendance, Batch, Student, Trainer } from '../../../models/interface';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-attendance',
@@ -15,25 +12,23 @@ import { AttendanceService } from '../../../services/attendance.service';
   styleUrl: './attendance.component.css'
 })
 export class AttendanceComponent implements OnInit {
-  @Input() trainerId!: string;   // Trainer ID from parent (optional override)
-  @Input() batchId!: string;     // Selected batch ID from parent (optional)
+  @Input() trainerId!: string;
+  @Input() batchId!: string;   
 
   trainer!: Trainer | null;
   batches: Batch[] = [];
   students: Student[] = [];
   selectedBatch: string = '';
-  // attendance map keyed by studentId: true = present, false = absent
   attendance: { [studentId: string]: boolean } = {};
   selectedDate: string = ''; // yyyy-MM-dd
 
+
   constructor(
-    private batchService: BatchService,
-    private studentService: StudentService,
-    private attendanceService: AttendanceService
+    private apiService: ApiService,
   ) {}
 
   ngOnInit(): void {
-    // If trainerId wasn't passed as @Input, try localStorage
+   
     if (!this.trainerId) {
       this.trainerId = localStorage.getItem('id') || '';
     }
@@ -50,7 +45,7 @@ export class AttendanceComponent implements OnInit {
   }
 
   loadBatches() {
-    this.batchService.getAllBatches().subscribe({
+    this.apiService.getAllBatches().subscribe({
       next: (data: Batch[]) => {
         // If a batchId input is provided, show only that; otherwise load all
         this.batches = this.batchId ? data.filter(b => b.batchId === this.batchId) : data;
@@ -64,7 +59,7 @@ export class AttendanceComponent implements OnInit {
   }
 
   loadStudentListByBatch(): void {
-    this.studentService.getAllStudents().subscribe({
+    this.apiService.getAllStudents().subscribe({
       next: (data: Student[]) => {
         this.students = data;
         // initialize attendance for known students
@@ -115,7 +110,7 @@ export class AttendanceComponent implements OnInit {
       status: this.attendance[s.studentId] ? 'PRESENT' : 'ABSENT'
     }));
 
-    this.attendanceService.saveAttendance(payload).subscribe({
+    this.apiService.saveAttendance(payload).subscribe({
       next: (res) => {
         console.log('Attendance saved response:', res);
         alert('Attendance saved successfully.');

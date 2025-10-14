@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/media")
+@RequestMapping("/admin/api/media")
 public class MediaController {
 
     @Autowired

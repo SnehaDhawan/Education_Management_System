@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Student } from '../../../../models/interface';
 import { StudentCreateComponent } from "../student-create/student-create.component";
 import { CommonModule } from '@angular/common';
-import { StudentService } from '../../../../services/student.service';
 import { FormsModule } from '@angular/forms';
+import { ApiService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-student-list',
@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
  styleUrls: ['./student-list.component.css']
 })
 export class StudentListComponent {
-constructor(private studentService: StudentService) {}
+constructor(private apiService: ApiService) {}
  students: Student[] = [];
   showForm = false;
 selectedStudent: Student | null = null;
@@ -24,7 +24,7 @@ selectedStudent: Student | null = null;
 
   // ✅ Call service to get students
   loadStudents(): void {
-    this.studentService.getAllStudents().subscribe({
+    this.apiService.getAllStudents().subscribe({
       next: (data) => {
         this.students = data;
       },
@@ -44,7 +44,7 @@ selectedStudent: Student | null = null;
 
 deleteStudent(studentId: string) {
   debugger
-  this.studentService.deleteStudent(studentId).subscribe({
+  this.apiService.deleteStudent(studentId).subscribe({
     next: () => {
       this.students = this.students.filter(s => s.studentId !== studentId);
       alert('Student deleted successfully!');
@@ -69,8 +69,6 @@ deleteStudent(studentId: string) {
     }
 
 
-
-    // ✅ always reset form
     this.showForm = false;
     this.selectedStudent = null;
   }

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TrainerService } from '../../../services/trainer.service';
-import { StudentService } from '../../../services/student.service';
 import { ApiService } from '../../../services/api.service';
 import { Student } from '../../../models/interface';
 import { Trainer } from '../../../models/interface';
@@ -43,8 +41,6 @@ export class Dashboard {
   mediaList: Media[] = [];
 
   constructor(
-    private studentService: StudentService,
-    private trainerService: TrainerService,
     private apiService: ApiService,
     private router: Router
   ) {
@@ -55,14 +51,14 @@ export class Dashboard {
 
   // Fetch student count
   fetchStudentCount() {
-    this.studentService.getAllStudents().subscribe((students: Student[]) => {
+    this.apiService.getAllStudents().subscribe((students: Student[]) => {
       this.studentCount = students.length;
     });
   }
 
   // Fetch trainer count
   fetchTrainerCount() {
-    this.trainerService.getAllTrainers().subscribe((trainers: Trainer[]) => {
+    this.apiService.getAllTrainers().subscribe((trainers: Trainer[]) => {
       this.trainerCount = trainers.length;
     });
   }

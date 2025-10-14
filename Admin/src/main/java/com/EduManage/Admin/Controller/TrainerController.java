@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/trainer")
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/admin/trainer")
 public class TrainerController {
 
     @Autowired

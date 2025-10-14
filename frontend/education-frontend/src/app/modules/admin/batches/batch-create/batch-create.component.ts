@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { BatchService } from '../../../../services/batch.service';
 import { Batch, Trainer } from '../../../../models/interface';
-import { TrainerService } from '../../../../services/trainer.service';
+import { ApiService } from '../../../../services/api.service';
+
 
 @Component({
   selector: 'app-batch-create',
@@ -16,7 +16,7 @@ export class BatchCreateComponent implements OnInit {
   @Input() selectedBatch: Batch | null = null; // ✅ Input property
   @Output() formClose: EventEmitter<Batch | null> = new EventEmitter();
 
-  constructor(private batchService: BatchService, private trainerService: TrainerService) {}
+  constructor(private apiService: ApiService,) {}
   trainers: Trainer[] = [];
   formBatch: Batch = {
     batchId: '',
@@ -36,7 +36,7 @@ export class BatchCreateComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (form.valid) {
       if (this.formBatch.batchId) {
-        this.batchService.updateBatch(this.formBatch).subscribe({
+        this.apiService.updateBatch(this.formBatch).subscribe({
           next: (res: any) => {
             console.log('Batch updated successfully:', res);
             alert('Batch updated successfully!');
@@ -48,7 +48,7 @@ export class BatchCreateComponent implements OnInit {
           },
         });
       } else {
-        this.batchService.createBatch(this.formBatch).subscribe({
+        this.apiService.createBatch(this.formBatch).subscribe({
           next: (res: any) => {
             console.log('Batch created successfully:', res);
             alert('Batch created successfully!');
@@ -74,7 +74,7 @@ export class BatchCreateComponent implements OnInit {
     };
   }
   loadTrainers(): void {
-    this.trainerService.getAllTrainers().subscribe({
+    this.apiService.getAllTrainers().subscribe({
       next: (data) => {
         this.trainers = data;
       },

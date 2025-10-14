@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Trainer } from '../../../../models/interface';
-import { TrainerService } from '../../../../services/trainer.service';
 import { TrainerCreateComponent } from "../trainer-create/trainer-create.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ApiService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-trainer-list',
@@ -19,14 +19,14 @@ export class TrainerListComponent {
   infoTrainer: Trainer | null = null;
   batchTime: string = '';
   selectedBatch: string = '';
-  constructor(private trainerService: TrainerService) {}
+  constructor(private apiService: ApiService) {}
   
   ngOnInit(): void {
     this.loadTrainers();
   }
  
   loadTrainers(): void {
-    this.trainerService.getAllTrainers().subscribe({
+    this.apiService.getAllTrainers().subscribe({
       next: (data) => {
         this.trainers = data;
       },
@@ -61,7 +61,7 @@ export class TrainerListComponent {
   }
   
   deleteTrainer(trainerId: string) {
-    this.trainerService.deleteTrainer(trainerId).subscribe({
+    this.apiService.deleteTrainer(trainerId).subscribe({
       next: () => {
         this.trainers = this.trainers.filter(t => t.trainerId !== trainerId);
       },

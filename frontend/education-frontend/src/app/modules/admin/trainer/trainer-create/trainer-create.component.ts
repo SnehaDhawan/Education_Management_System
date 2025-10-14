@@ -2,9 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Trainer } from '../../../../models/interface';
 import { Batch } from '../../../../models/interface';
-import { TrainerService } from '../../../../services/trainer.service';
-import { BatchService } from '../../../../services/batch.service';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-trainer-create',
@@ -33,13 +32,13 @@ export class TrainerCreateComponent implements OnInit {
   batches: Batch[] = [];
 
   constructor(
-    private trainerService: TrainerService,
-    private batchService: BatchService
+    private apiService: ApiService,
+   
   ) {}
 
   ngOnInit(): void {
     // Load batches for dropdown
-    this.batchService.getAllBatches().subscribe({
+    this.apiService.getAllBatches().subscribe({
       next: (data: Batch[]) => this.batches = data,
       error: (err) => console.error('Error fetching batches:', err)
     });
@@ -75,7 +74,7 @@ export class TrainerCreateComponent implements OnInit {
     if (form.valid) {
       if (this.formTrainer.trainerId) {
         // Update existing trainer
-        this.trainerService.updateTrainer(this.formTrainer).subscribe({
+        this.apiService.updateTrainer(this.formTrainer).subscribe({
           next: (res: any) => {
             alert('Trainer updated successfully!');
             this.closeForm(res);
@@ -87,7 +86,7 @@ export class TrainerCreateComponent implements OnInit {
         });
       } else {
         // Create new trainer
-        this.trainerService.createTrainer(this.formTrainer).subscribe({
+        this.apiService.createTrainer(this.formTrainer).subscribe({
           next: (res: any) => {
             alert('Trainer created successfully!');
             this.closeForm(res);

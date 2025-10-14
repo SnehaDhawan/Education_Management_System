@@ -1,9 +1,10 @@
 import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
-import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
+import { ApiService } from '../services/api.service';
+
 
 export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn) => {
-  const auth = inject(AuthService);
+  const auth = inject(ApiService);
   const token = auth.getToken();
 
   if (token) {

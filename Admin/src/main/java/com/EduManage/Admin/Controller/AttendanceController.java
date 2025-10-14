@@ -12,13 +12,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/attendance")
+@RequestMapping("/admin/attendance")
 public class AttendanceController {
 
     @Autowired
     private AttendanceService attendanceService;
-
-
 
     // Bulk save
     @PostMapping("/save")

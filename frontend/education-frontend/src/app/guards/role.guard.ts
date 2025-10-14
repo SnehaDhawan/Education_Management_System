@@ -1,9 +1,9 @@
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
+import { ApiService } from '../services/api.service';
 
 export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-  const auth = inject(AuthService);
+  const auth = inject(ApiService);
   const router = inject(Router);
 
   // 1. Check if logged in
@@ -36,6 +36,8 @@ export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: R
     router.navigate([redirect]);
     return false;
   }
+
+
 
   return true;
 };

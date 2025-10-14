@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/batch")
+@RequestMapping("/admin/batch")
 public class BatchController {
 
     @Autowired

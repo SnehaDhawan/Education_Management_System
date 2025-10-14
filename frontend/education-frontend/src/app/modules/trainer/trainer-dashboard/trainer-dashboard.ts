@@ -2,30 +2,25 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BatchService } from '../../../services/batch.service';
 import { Batch, Student, Trainer } from '../../../models/interface';
-import { TrainerService } from '../../../services/trainer.service';
-import { StudentService } from '../../../services/student.service';
+import { ApiService } from '../../../services/api.service';
 import { AttendanceComponent } from '../attendance/attendance.component';
+
+
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule,AttendanceComponent],
+  imports: [CommonModule, FormsModule, AttendanceComponent],
   templateUrl: './trainer-dashboard.html',
   styleUrl: './trainer-dashboard.css'
 })
 export class Dashboard implements OnInit {
   
-
-
   activeTab = 'batches';
   trainerName: string = '';
   trainerId :string='';
-
-
-
   batches: Batch[] = [];
   trainer!: Trainer;
   pendingAttendance = 1;
@@ -34,8 +29,8 @@ export class Dashboard implements OnInit {
   
 
   constructor(private router: Router,
-    private batchService: BatchService,
-    private trainerService :TrainerService,
+    private apiService: ApiService,
+    
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +45,7 @@ export class Dashboard implements OnInit {
 
   loadTrainer(): void {
     if(this.trainerId) {
-      this.trainerService.getTrainerById(this.trainerId).subscribe({
+      this.apiService.getTrainerById(this.trainerId).subscribe({
         next: (data: Trainer) => {
           this.trainer = data;
           console.log('Trainer loaded:', this.trainer);
@@ -66,7 +61,7 @@ export class Dashboard implements OnInit {
 
 
 loadBatches() {
-  this.batchService.getAllBatches().subscribe({
+  this.apiService.getAllBatches().subscribe({
     next: (data: Batch[]) => {
       this.batches = data.filter(batch => batch.batchId === this.trainer.batchId);
       console.log('Filtered Batches:', this.batches);

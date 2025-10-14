@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Batch, Trainer } from '../../../../models/interface';
-import { BatchService } from '../../../../services/batch.service';
 import { BatchCreateComponent } from "../batch-create/batch-create.component";
-import { TrainerService } from '../../../../services/trainer.service';
+import { ApiService } from '../../../../services/api.service';
+
 
 @Component({
   selector: 'app-batch-list',
@@ -24,8 +24,7 @@ export class BatchListComponent implements OnInit {
   selectedBatch: Batch | null = null;
 
   constructor(
-    private batchService: BatchService,
-    private trainerService: TrainerService
+    private apiService :ApiService
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +33,7 @@ export class BatchListComponent implements OnInit {
   }
 
   loadBatches(): void {
-    this.batchService.getAllBatches().subscribe({
+    this.apiService.getAllBatches().subscribe({
       next: (data: Batch[]) => {
         this.batches = data;
       },
@@ -43,7 +42,7 @@ export class BatchListComponent implements OnInit {
   }
 
   loadTrainers(): void {
-    this.trainerService.getAllTrainers().subscribe({
+    this.apiService.getAllTrainers().subscribe({
       next: (data: Trainer[]) => {
         this.trainers = data;
         this.trainerMap = {};
@@ -62,7 +61,7 @@ export class BatchListComponent implements OnInit {
   deleteBatch(batchId: string) {
     if (!confirm('Are you sure you want to delete this batch?')) return;
 
-    this.batchService.deleteBatch(batchId).subscribe({
+    this.apiService.deleteBatch(batchId).subscribe({
       next: () => {
         this.batches = this.batches.filter(b => b.batchId !== batchId);
         alert('Batch deleted successfully!');
