@@ -46,12 +46,14 @@ export interface Batch {
 
 export interface TaskAssign {
   id?: number;
-  task: string;
-  taskName: string;
+  trainerId: string;
+  batchId: string;
+  studentId: string;
+  taskTitle: string;
+  taskDescription: string;
   assignedDate: string;
   dueDate: string;
-  trainerId: number;
-  batchId: number;
+  status: string;
 }
 
 
@@ -62,7 +64,6 @@ export interface Attendance {
   date: string; // yyyy-MM-dd
   status: 'PRESENT' | 'ABSENT';
 }
-
 
 export const environment = {
   production: false,

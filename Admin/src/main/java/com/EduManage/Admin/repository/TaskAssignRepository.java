@@ -6,10 +6,9 @@ import java.util.List;
 
 public interface TaskAssignRepository extends JpaRepository<TaskAssign, Integer> {
 
-//    // Find tasks assigned to a specific student
-//    List<TaskAssign> findByStudent_StudentId(Long studentId);
-//
-//    // Find tasks assigned by a specific trainer
-//    List<TaskAssign> findByTrainer_TrainerId(Long trainerId);
+    List<TaskAssign> findByTrainerId(String trainerId);
+
+    List<TaskAssign> findByStudentId(String studentId);
 }
+
 

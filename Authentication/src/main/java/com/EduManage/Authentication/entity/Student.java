@@ -9,30 +9,27 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "students")
+    @Table(name = "students")
     public class Student {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Integer id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;  // Primary key
+        @Column(name="student_id", nullable=false)
+        private String studentId;
 
-    @Column(name = "student_id", unique = true)
-    private String studentId;  // Business identifier, unique
+        @Column(name="student_name", nullable=false)
+        private String studentName;
 
-    @Column(name = "student_name", nullable = false, length = 255)
-    private String studentName;
+        @Column(nullable=false, unique=true)
+        private String email;
 
-    @Column(name = "email", nullable = false, length = 255, unique = true)
-    private String email;
+        @Column(nullable=false)
+        private String password;
 
-    @Column(name = "password", nullable = false, length = 255)
-    private String password;
-
-    @Column(name = "mobile_no", nullable = false, unique = true)
-    private Long mobileNo;
+        @Column(name="mobile_no", nullable=false, unique=true)
+        private Long mobileNo;
 
     @Column(name = "batch_id", nullable = false, length = 255)  // Escaped class keyword
     private String batchId;
-
 }
