@@ -44,17 +44,17 @@ export interface Batch {
 }
 
 
-export interface TaskAssign {
-  id?: number;
-  trainerId: string;
-  batchId: string;
-  studentId: string;
-  taskTitle: string;
-  taskDescription: string;
-  assignedDate: string;
-  dueDate: string;
-  status: string;
-}
+// export interface TaskAssign {
+//   id?: number;
+//   trainerId: string;
+//   batchId: string;
+//   studentId: string;
+//   taskTitle: string;
+//   taskDescription: string;
+//   assignedDate: string;
+//   dueDate: string;
+//   status: string;
+// }
 
 
 export interface Attendance {
@@ -69,3 +69,26 @@ export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:8080' 
 };
+
+
+
+export interface TaskDetails {
+  studentId: string;
+  taskSubmitStatus: string;
+  batchId: string;
+}
+
+export interface TaskAssign {
+  taskId: string;
+  trainerId: string;
+  batchId: string;
+  taskTitle: string;
+  taskDescription: string;
+  assignedDate: string;
+  dueDate: string;
+  status: string;
+  taskDetails: TaskDetails[];
+}
+
+
+

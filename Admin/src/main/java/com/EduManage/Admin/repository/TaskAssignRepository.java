@@ -8,7 +8,6 @@ public interface TaskAssignRepository extends JpaRepository<TaskAssign, Integer>
 
     List<TaskAssign> findByTrainerId(String trainerId);
 
-    List<TaskAssign> findByStudentId(String studentId);
 }
 
 

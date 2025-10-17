@@ -5,14 +5,14 @@ import { Router } from '@angular/router';
 import { Batch, Student, Trainer } from '../../../models/interface';
 import { ApiService } from '../../../services/api.service';
 import { AttendanceComponent } from '../attendance/attendance.component';
-
+import { TaskAsianComponent } from "../task-asian/task-asian.component";
 
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, AttendanceComponent],
+  imports: [CommonModule, FormsModule, AttendanceComponent, TaskAsianComponent],
   templateUrl: './trainer-dashboard.html',
   styleUrl: './trainer-dashboard.css'
 })

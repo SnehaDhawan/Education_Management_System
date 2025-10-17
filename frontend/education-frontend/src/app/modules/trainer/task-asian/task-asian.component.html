@@ -1,0 +1,117 @@
+<!-- <div class="task-form-container">
+
+  <h3>Select Batch</h3>
+  <select [(ngModel)]="selectedBatch" class="dropdown">
+    <option value="" disabled>Select Batch</option>
+    <option *ngFor="let batch of batches" [value]="batch.batchId">{{ batch.batchName }}</option>
+  </select>
+
+  <div>
+    <div *ngFor="let student of getStudentsForBatch(selectedBatch)">
+      <h6>{{ student.studentName }}</h6>
+    </div>
+
+
+    <h3>Assign Task</h3>
+
+
+
+    <div class="form-group">
+      <label>Task Title:</label>
+      <input type="text" name="taskTitle" [(ngModel)]="task.taskTitle" required />
+    </div>
+
+    <div class="form-group">
+      <label>Task Description:</label>
+      <textarea name="taskDescription" [(ngModel)]="task.taskDescription" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Assigned Date:</label>
+      <input type="date" name="assignedDate" [(ngModel)]="task.assignedDate" />
+    </div>
+
+    <div class="form-group">
+      <label>Due Date:</label>
+      <input type="date" name="dueDate" [(ngModel)]="task.dueDate" required />
+    </div>
+
+    <div class="form-group">
+      <label>Status:</label>
+      <select name="status" [(ngModel)]="task.status">
+        <option value="Assigned">Assigned</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+  </div>
+  <button class="btn green" (click)="saveTask()">Save Attendance</button>
+</div> -->
+<div class="task-container">
+  <h2>Assign Task</h2>
+
+  <form (ngSubmit)="saveTask()" #taskForm="ngForm" novalidate>
+
+    <!-- Batch Selection -->
+    <label for="batch">Select Batch</label>
+    <select [(ngModel)]="taskAssign.batchId" name="batchId" id="batch" required>
+      <option value="" disabled selected>Select Batch</option>
+      <option *ngFor="let batch of batches" [value]="batch.batchId">
+        {{ batch.batchName }}
+      </option>
+    </select>
+
+    <!-- Task ID -->
+    <label for="taskId">Task ID</label>
+    <input
+      type="text"
+      id="taskId"
+      placeholder="Enter Task ID"
+      [(ngModel)]="taskAssign.taskId"
+      name="taskId"
+      required
+    />
+
+    <!-- Task Title -->
+    <label for="taskTitle">Task Title</label>
+    <input
+      type="text"
+      id="taskTitle"
+      placeholder="Enter Task Title"
+      [(ngModel)]="taskAssign.taskTitle"
+      name="taskTitle"
+      required
+    />
+
+    <!-- Description -->
+    <label for="description">Task Description</label>
+    <textarea
+      id="description"
+      placeholder="Enter Description"
+      [(ngModel)]="taskAssign.taskDescription"
+      name="taskDescription"
+    ></textarea>
+
+    <!-- Assigned Date -->
+    <label for="assignedDate">Assigned Date</label>
+    <input
+      type="date"
+      id="assignedDate"
+      [(ngModel)]="taskAssign.assignedDate"
+      name="assignedDate"
+      required
+    />
+
+    <!-- Due Date -->
+    <label for="dueDate">Due Date</label>
+    <input
+      type="date"
+      id="dueDate"
+      [(ngModel)]="taskAssign.dueDate"
+      name="dueDate"
+    />
+
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="!taskForm.valid">Assign Task</button>
+  </form>
+</div>

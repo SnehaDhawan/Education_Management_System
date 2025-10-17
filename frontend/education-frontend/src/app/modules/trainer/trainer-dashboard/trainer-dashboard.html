@@ -64,6 +64,11 @@
 </div>
 
 
+<div *ngIf="activeTab === 'tasks'">
+  <app-task-asian [trainerId]="trainerId" [batchId]="trainer.batchId"></app-task-asian>
+</div>
+
+
 
     <section *ngIf="activeTab==='reports'" class="content">
       <h3>Reports</h3>

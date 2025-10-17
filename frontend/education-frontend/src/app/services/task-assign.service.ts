@@ -3,28 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TaskAssign } from '../models/interface';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class TaskAssignService {
 
-  private baseUrl = 'http://localhost:8082/api/task'; // backend URL
+  private baseUrl = 'http://localhost:8080/admin/tasks';
 
   constructor(private http: HttpClient) {}
 
-  createTask(task: TaskAssign): Observable<TaskAssign> {
-    return this.http.post<TaskAssign>(`${this.baseUrl}/save`, task);
+  saveTask(task: TaskAssign): Observable<any> {
+    return this.http.post(`${this.baseUrl}/save`, task);
   }
 
   getAllTasks(): Observable<TaskAssign[]> {
-    return this.http.get<TaskAssign[]>(`${this.baseUrl}/list`);
+    return this.http.get<TaskAssign[]>(`${this.baseUrl}/all`);
   }
 
-  getTaskById(id: number): Observable<TaskAssign> {
-    return this.http.get<TaskAssign>(`${this.baseUrl}/${id}`);
-  }
-
-  deleteTask(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  getTasksByStudentId(studentId: string): Observable<TaskAssign[]> {
+    return this.http.get<TaskAssign[]>(`${this.baseUrl}/student/${studentId}`);
   }
 }
