@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { NgModule } from '@angular/core';
 import { roleGuard } from './guards/role.guard';
 import { Login } from './login/login';
+import { CompilerComponent } from './modules/student/compiler/compiler.component';
 
 //  export const routes: Routes = [
 // { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -52,6 +53,8 @@ export const routes: Routes = [
     canActivate: [roleGuard],               // 👈 Protect student routes
     data: { role: 'STUDENT' }
   },
+
+  {path: 'compiler', component: CompilerComponent } ,
 
   { path: '**', redirectTo: 'login' }
 ];

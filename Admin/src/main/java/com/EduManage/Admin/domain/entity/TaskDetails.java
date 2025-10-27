@@ -31,6 +31,10 @@ public class TaskDetails {
     @Column(name = "batch_id", nullable = false)
     private String batchId;
 
+    // New column to store student code
+    @Column(name = "task_solution", columnDefinition = "TEXT")
+    private String taskSolution;
+
     // Many TaskDetails belong to one TaskAssignHd
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id", referencedColumnName = "task_id")

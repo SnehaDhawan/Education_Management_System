@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Batch, Student } from '../../../models/interface';
 import { ApiService } from '../../../services/api.service';
+import { StudentTaskComponent } from "../student-task/student-task.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule, StudentTaskComponent],
   templateUrl: './student-dashboard.html',
   styleUrl: './student-dashboard.css'
 })

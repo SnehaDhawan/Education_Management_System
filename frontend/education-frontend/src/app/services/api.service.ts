@@ -152,18 +152,24 @@ export class ApiService {
     return this.http.get<TaskAssign[]>(`${this.baseUrl}/admin/task/all`);
   }
 
-  // -------------------------------------------------------------------
-  // 🖼️ MEDIA SERVICE METHODS
-  // -------------------------------------------------------------------
-  uploadMedia(files: File[]): Observable<Media[]> {
-    const formData = new FormData();
-    files.forEach(file => formData.append('files', file));
-    return this.http.post<Media[]>(`${this.baseUrl}/admin/media/upload`, formData);
-  }
+  
 
-  getMediaList(): Observable<Media[]> {
-    return this.http.get<Media[]>(`${this.baseUrl}/admin/media/list`);
-  }
+
+ getTasksByStudentId(studentId: string): Observable<any> {
+  return this.http.get(`${this.baseUrl}/admin/tasks/student/${studentId}`);
+}
+
+
+// updateStudentSolution(payload: any) {
+//   return this.http.put(`${this.baseUrl}/admin/tasks/update-solution`, payload);
+// }
+
+
+updateStudentSolution(payload: any): Observable<any> {
+  return this.http.put(`${this.baseUrl}/admin/tasks/update-solution`, payload, {
+    responseType: 'text' // 👈 This line ensures Angular expects plain text
+  });
+}
 
 
 }

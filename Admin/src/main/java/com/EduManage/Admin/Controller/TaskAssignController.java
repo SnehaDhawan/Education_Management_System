@@ -4,6 +4,7 @@ package com.EduManage.Admin.Controller;
 import com.EduManage.Admin.domain.entity.TaskAssign;
 import com.EduManage.Admin.domain.entity.TaskDetails;
 import com.EduManage.Admin.domain.request.TaskAssignRequest;
+import com.EduManage.Admin.domain.request.TaskDetailsRequest;
 import com.EduManage.Admin.service.TaskAssignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,11 +22,6 @@ public class TaskAssignController {
     @Autowired
     private TaskAssignService taskAssignService;
 
-//    @PostMapping("/save")
-//    public ResponseEntity<TaskAssign> saveTaskAssign(@RequestBody TaskAssignRequest request) {
-//        TaskAssign savedTask = taskAssignService.saveTaskAssign(request);
-//        return ResponseEntity.ok(savedTask);
-//    }
 
 
 
@@ -44,4 +40,10 @@ public class TaskAssignController {
         return taskAssignService.getTasksByStudentId(studentId);
     }
 
+
+    @PutMapping("/update-solution")
+    public ResponseEntity<String> updateSolution(@RequestBody TaskDetailsRequest request) {
+        taskAssignService.updateSolution(request);
+        return ResponseEntity.ok("Task solution updated successfully");
+    }
 }

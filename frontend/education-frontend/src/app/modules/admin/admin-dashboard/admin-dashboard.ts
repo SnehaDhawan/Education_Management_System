@@ -46,7 +46,7 @@ export class Dashboard {
   ) {
     this.fetchTrainerCount();
     this.fetchStudentCount();
-    this.loadMediaList(); 
+
   }
 
   // Fetch student count
@@ -90,41 +90,5 @@ export class Dashboard {
 
   }
 
-  // Media selection
-  onMediaSelected(event: any) {
-    const files: FileList = event.target.files;
-    this.uploadedMediaFiles = Array.from(files);
-    console.log('Selected media files:', this.uploadedMediaFiles);
-  }
 
-  // Upload media
-  uploadMedia() {
-    if (this.uploadedMediaFiles.length) {
-      this.apiService.uploadMedia(this.uploadedMediaFiles).subscribe({
-        next: (mediaList: Media[]) => {
-          // Append new media to the list
-          this.mediaList = this.mediaList.concat(mediaList);
-          this.showMediaUpload = false;
-          this.uploadedMediaFiles = [];
-        },
-        error: (err) => console.error('Upload failed:', err)
-      });
-    }
-  }
-
-  // Load media list from backend
-  loadMediaList(): void {
-    this.apiService.getMediaList().subscribe({
-      next: (data) => {
-        // Map to Media interface with URLs
-        this.mediaList = data.map(media => ({
-          filename: media.filename,
-          url: media.filename.startsWith('http') ? media.filename : `http://localhost:8082/media/${media.filename}`
-        }));
-      },
-      error: (err) => {
-        console.error('Error fetching media list', err);
-      }
-    });
-  }
 }

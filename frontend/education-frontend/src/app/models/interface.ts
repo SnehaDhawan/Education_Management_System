@@ -44,19 +44,6 @@ export interface Batch {
 }
 
 
-// export interface TaskAssign {
-//   id?: number;
-//   trainerId: string;
-//   batchId: string;
-//   studentId: string;
-//   taskTitle: string;
-//   taskDescription: string;
-//   assignedDate: string;
-//   dueDate: string;
-//   status: string;
-// }
-
-
 export interface Attendance {
   trainerId: string;
   batchId: string;

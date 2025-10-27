@@ -1,0 +1,16 @@
+<h2>{{ taskTitle }}</h2>
+<p>{{ taskDescription }}</p>
+
+<!-- Online compiler -->
+<iframe
+  src="https://onecompiler.com/embed/java"
+  width="100%" height="600"
+  frameborder="0" style="border:1px solid #ccc; border-radius:8px;">
+</iframe>
+
+<!-- Submission form -->
+<div style="margin-top:12px;">
+  <label>Paste your final code here:</label>
+  <textarea [(ngModel)]="studentCode" rows="10" style="width:100%;"></textarea>
+  <button (click)="submitSolution()">Submit Solution</button>
+</div>

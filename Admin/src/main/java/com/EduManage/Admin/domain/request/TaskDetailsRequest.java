@@ -20,4 +20,12 @@ public class TaskDetailsRequest {
 
     @JsonProperty("batchId")
     private String batchId;
+
+    @JsonProperty("taskId")
+    private String taskId;
+
+    @JsonProperty("taskSolution")
+    private String taskSolution; // student pasted code
+
+
 }
