@@ -5,20 +5,22 @@ import { Router } from '@angular/router';
 import { Batch, Student, Trainer } from '../../../models/interface';
 import { ApiService } from '../../../services/api.service';
 import { AttendanceComponent } from '../attendance/attendance.component';
-import { TaskAsianComponent } from "../task-asian/task-asian.component";
+import { TaskAsianComponent } from "../task/task-asian/task-asian.component";
+import { TaskListComponent } from "../task/task-list/task-list.component";
 
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, AttendanceComponent, TaskAsianComponent],
+  imports: [CommonModule, FormsModule, AttendanceComponent, TaskAsianComponent, TaskListComponent],
   templateUrl: './trainer-dashboard.html',
   styleUrl: './trainer-dashboard.css'
 })
 export class Dashboard implements OnInit {
-  
+   taskView = 'assign';
   activeTab = 'batches';
+
   trainerName: string = '';
   trainerId :string='';
   batches: Batch[] = [];
@@ -83,6 +85,10 @@ loadBatches() {
   }
 
 
+
+    toggleTaskView(view: string) {
+    this.taskView = view;
+  }
 
 
 }

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Batch, Student, TaskAssign, TaskDetails, Trainer } from '../../../models/interface';
-import { TaskAssignService } from '../../../services/task-assign.service';
+import { Batch, Student, TaskAssign, TaskDetails, Trainer } from '../../../../models/interface';
+import { TaskAssignService } from '../../../../services/task-assign.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ApiService } from '../../../services/api.service';
+import { ApiService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-task-asian',
@@ -12,83 +12,7 @@ import { ApiService } from '../../../services/api.service';
   templateUrl: './task-asian.component.html',
   styleUrl: './task-asian.component.css',
 })
-// export class TaskAsianComponent implements OnInit {
-//  @Input() trainerId!: string;
-//   @Input() batchId!: string;
-
-//   trainer!: Trainer | null;
-//   batches: Batch[] = [];
-//   students: Student[] = [];
-//   selectedBatch: string = '';
-//   task: TaskAssign[] = [];
-
-//   constructor(private taskService: TaskAssignService, private apiService: ApiService) {}
-//   ngOnInit(): void {
-//     if (!this.trainerId) {
-//       this.trainerId = localStorage.getItem('id') || '';
-//     }
-
-//     // set default date to today
-//     const today = new Date();
-//     const yyyy = today.getFullYear();
-//     const mm = String(today.getMonth() + 1).padStart(2, '0');
-//     const dd = String(today.getDate()).padStart(2, '0');
-//     this.loadBatches();
-//     this.loadStudentListByBatch();
-//   }
-
-//   loadBatches() {
-//     this.apiService.getAllBatches().subscribe({
-//       next: (data: Batch[]) => {
-//         // If a batchId input is provided, show only that; otherwise load all
-//         this.batches = this.batchId ? data.filter((b) => b.batchId === this.batchId) : data;
-//         // if only one batch present, set selectedBatch
-//         if (this.batches.length === 1) {
-//           this.selectedBatch = this.batches[0].batchId;
-//         }
-//       },
-//       error: (err) => console.error('Error fetching batches:', err),
-//     });
-//   }
-
   
-
-//   saveTask(): void {
-//     if (!this.selectedBatch) {
-//       alert('Please select a batch.');
-//       return;
-//     }
-
-//     const studentsForBatch = this.getStudentsForBatch(this.selectedBatch);
-//     if (studentsForBatch.length === 0) {
-//       alert('No students found for selected batch.');
-//       return;
-//     }
-
-//     const payload: TaskAssign[] = studentsForBatch.map((s) => ({
-//       trainerId: this.trainerId || '',
-//       batchId: this.selectedBatch,
-//       taskTitle: '',
-//       taskDescription: '',
-//       assignedDate: '',
-//       dueDate: '',
-//       status: '',
-//     }));
-
-//     this.taskService.createTask(payload).subscribe({
-//       next: (res) => {
-//         console.log('Attendance saved response:', res);
-//         alert('Attendance saved successfully.');
-//       },
-//       error: (err) => {
-//         console.error('Error saving attendance:', err);
-//         alert('Failed to save attendance. See console for details.');
-//       },
-//     });
-//   }
-// }
-  
-
 export class TaskAsianComponent implements OnInit {
   @Input() trainerId!: string;
   @Input() batchId!: string;

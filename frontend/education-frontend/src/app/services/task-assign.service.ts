@@ -24,4 +24,10 @@ export class TaskAssignService {
   getTasksByStudentId(studentId: string): Observable<TaskAssign[]> {
     return this.http.get<TaskAssign[]>(`${this.baseUrl}/student/${studentId}`);
   }
+
+getTaskStatusByBatch(batchId: string) {
+  return this.http.get<any[]>(`${this.baseUrl}/batch/${batchId}/tasks-status`);
+}
+
+
 }

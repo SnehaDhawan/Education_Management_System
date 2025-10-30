@@ -3,6 +3,7 @@ package com.EduManage.Admin.repository;
 import com.EduManage.Admin.domain.entity.TaskDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,6 +18,18 @@ public interface TaskDetailsRepository extends JpaRepository<TaskDetails ,Intege
 
 
     Optional<TaskDetails> findByStudentIdAndTaskAssign_TaskId(String studentId, String taskId);
+
+
+
+//    @Query("SELECT td FROM TaskDetails td " +
+//            "JOIN FETCH td.taskAssign ta " +
+//            "WHERE td.batchId = :batchId")
+//    List<TaskDetails> findByBatchIdWithTasks(@Param("batchId") String batchId);
+
+
+    @Query("SELECT td FROM TaskDetails td JOIN FETCH td.taskAssign ta WHERE td.batchId = :batchId")
+    List<TaskDetails> findByBatchIdWithTasks(@Param("batchId") String batchId);
+
 }
 
 

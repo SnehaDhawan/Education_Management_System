@@ -5,6 +5,7 @@ import com.EduManage.Admin.domain.entity.TaskAssign;
 import com.EduManage.Admin.domain.entity.TaskDetails;
 import com.EduManage.Admin.domain.request.TaskAssignRequest;
 import com.EduManage.Admin.domain.request.TaskDetailsRequest;
+import com.EduManage.Admin.domain.response.StudentTaskStatusDTO;
 import com.EduManage.Admin.service.TaskAssignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,4 +47,19 @@ public class TaskAssignController {
         taskAssignService.updateSolution(request);
         return ResponseEntity.ok("Task solution updated successfully");
     }
+
+
+//    @GetMapping("/batch/{batchId}/tasks-status")
+//    public ResponseEntity<List<StudentTaskStatusDTO>> getTaskStatus(@PathVariable String batchId) {
+//        List<StudentTaskStatusDTO> response = taskAssignService.getTaskStatusByBatch(batchId);
+//        return ResponseEntity.ok(response);
+//    }
+
+
+    @GetMapping("/batch/{batchId}/tasks-status")
+    public ResponseEntity<List<StudentTaskStatusDTO>> getTaskStatus(@PathVariable String batchId) {
+        List<StudentTaskStatusDTO> response = taskAssignService.getTaskStatusByBatch(batchId);
+        return ResponseEntity.ok(response);
+    }
+
 }

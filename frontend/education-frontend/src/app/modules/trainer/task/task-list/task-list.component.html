@@ -1,0 +1,88 @@
+<div class="task-list-container">
+  <h3>Batch Task Status</h3>
+
+  <label>Select Batch:</label>
+  <select [(ngModel)]="selectedBatch" (change)="loadTaskStatus(selectedBatch)">
+    <option *ngFor="let b of batches" [value]="b.batchId">{{ b.batchName }}</option>
+  </select>
+
+<!-- 
+<table *ngIf="filteredStudents.length > 0 && tasks.length > 0" class="task-table">
+  <thead>
+    <tr>
+      <th>Student Name</th>
+      <th *ngFor="let task of tasks">{{ task }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of filteredStudents">
+      <td>{{ student.studentName }}</td>
+      <td *ngFor="let task of tasks">
+        <ng-container [ngSwitch]="getStatus(student.studentId, task)">
+          <span *ngSwitchCase="'Pending'" class="status pending">Pending</span>
+          <span *ngSwitchCase="'Assigned'" class="status assigned">Assigned</span>
+          <span *ngSwitchDefault class="status submitted">
+            {{ getStatus(student.studentId, task) }}
+            <button class="view-btn" (click)="viewSolution(student.studentId, task)">
+              View Solution
+            </button>
+          </span>
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="modal" *ngIf="showSolutionModal">
+  <div class="modal-content">
+    <h3>Task Solution - {{ selectedTask }}</h3>
+    <p>{{ selectedSolution }}</p>
+    <button class="close-btn" (click)="closeModal()">Close</button>
+  </div>
+</div>
+ -->
+
+
+<table *ngIf="students.length > 0 && tasks.length > 0" class="task-table">
+  <thead>
+    <tr>
+      <th>Student Name</th>
+      <th *ngFor="let task of tasks">{{ task }}</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let student of students">
+      <td>{{ student.studentName }}</td>
+
+      <td *ngFor="let task of tasks">
+        <ng-container *ngIf="getStatus(student, task) !== 'NA'; else noTask">
+          <span>{{ getStatus(student, task) }}</span>
+
+          <button
+            *ngIf="getSolution(student, task)"
+            class="view-btn"
+            (click)="viewSolution(student, task)"
+          >
+            View
+          </button>
+        </ng-container>
+
+        <ng-template #noTask>NA</ng-template>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ✅ Modal -->
+<div class="modal" *ngIf="showSolutionModal">
+  <div class="modal-content">
+    <h3>Solution - {{ selectedTask }} ({{ selectedStudent }})</h3>
+    <pre>{{ selectedSolution }}</pre>
+    <button class="close-btn" (click)="closeModal()">Close</button>
+  </div>
+</div>
+
+
+  <p *ngIf="tasks.length === 0">No tasks found for this batch.</p>
+</div>

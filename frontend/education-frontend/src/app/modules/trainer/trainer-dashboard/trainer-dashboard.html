@@ -64,9 +64,29 @@
 </div>
 
 
-<div *ngIf="activeTab === 'tasks'">
+<!-- <div *ngIf="activeTab === 'tasks'">
   <app-task-asian [trainerId]="trainerId" [batchId]="trainer.batchId"></app-task-asian>
+</div> -->
+
+
+<div *ngIf="activeTab === 'tasks'">
+  <h3>Task Management</h3>
+
+  <!-- Toggle buttons -->
+  <button class="add-btn" (click)="toggleTaskView('assign')">Assign Task</button>
+  <button class="add-btn" (click)="toggleTaskView('list')">View Task List</button>
+
+  <!-- Task Assign -->
+  <div *ngIf="taskView === 'assign'">
+    <app-task-asian [trainerId]="trainerId" [batchId]="trainer.batchId"></app-task-asian>
+  </div>
+
+  <!-- Task List -->
+  <div *ngIf="taskView === 'list'">
+    <app-task-list [trainerId]="trainerId" [batchId]="trainer.batchId"></app-task-list>
+  </div>
 </div>
+
 
 
 

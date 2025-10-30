@@ -172,4 +172,9 @@ updateStudentSolution(payload: any): Observable<any> {
 }
 
 
+getTaskStatusByBatch(batchId: string) {
+  return this.http.get<any[]>(`${this.baseUrl}/admin/tasks/batch/${batchId}/tasks-status`);
+}
+
+
 }
