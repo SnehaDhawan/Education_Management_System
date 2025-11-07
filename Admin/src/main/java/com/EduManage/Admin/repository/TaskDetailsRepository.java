@@ -16,15 +16,7 @@ public interface TaskDetailsRepository extends JpaRepository<TaskDetails ,Intege
     @Query("SELECT td FROM TaskDetails  td JOIN FETCH td.taskAssign ta WHERE td.studentId = :studentId")
     List<TaskDetails> findByStudentIdWithTask(@org.springframework.data.repository.query.Param("studentId") String studentId);
 
-
     Optional<TaskDetails> findByStudentIdAndTaskAssign_TaskId(String studentId, String taskId);
-
-
-
-//    @Query("SELECT td FROM TaskDetails td " +
-//            "JOIN FETCH td.taskAssign ta " +
-//            "WHERE td.batchId = :batchId")
-//    List<TaskDetails> findByBatchIdWithTasks(@Param("batchId") String batchId);
 
 
     @Query("SELECT td FROM TaskDetails td JOIN FETCH td.taskAssign ta WHERE td.batchId = :batchId")

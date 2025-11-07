@@ -80,33 +80,6 @@
   </table>
 </section>
 
-
-    <!-- Tasks -->
-    <!-- <section *ngIf="activeTab==='tasks'" class="content">
-      <h3>My Tasks</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Task</th>
-            <th>Status</th>
-            <th>Submit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let task of taskList">
-            <td>{{ task.title }}</td>
-            <td>{{ task.status }}</td>
-            <td>
-              <input type="file" (change)="onFileSelected($event, task)" />
-              <button class="btn blue" (click)="submitTask(task)">Submit</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section> -->
-
-
-
     <section *ngIf="activeTab==='tasks'" class="content">
      <app-student-task></app-student-task>
     </section>

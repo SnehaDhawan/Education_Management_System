@@ -46,14 +46,6 @@ export class StudentTaskComponent implements OnInit {
     });
   }
 
-  // // Example: Open task in online compiler
-  // openCompiler(task: any) {
-  //   const compilerUrl = 'https://onecompiler.com/java'; // or any preferred compiler
-  //   window.open(compilerUrl, '_blank');
-  // }
-
-
-
 openCompiler(task: any) {
   this.router.navigate(['/compiler'], {
     queryParams: {

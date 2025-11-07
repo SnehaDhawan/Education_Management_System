@@ -5,48 +5,39 @@ import { Router } from '@angular/router';
 import { Batch, Student, Trainer } from '../../../models/interface';
 import { ApiService } from '../../../services/api.service';
 import { AttendanceComponent } from '../attendance/attendance.component';
-import { TaskAsianComponent } from "../task/task-asian/task-asian.component";
-import { TaskListComponent } from "../task/task-list/task-list.component";
-
-
+import { TaskAsianComponent } from '../task/task-asian/task-asian.component';
+import { TaskListComponent } from '../task/task-list/task-list.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule, FormsModule, AttendanceComponent, TaskAsianComponent, TaskListComponent],
   templateUrl: './trainer-dashboard.html',
-  styleUrl: './trainer-dashboard.css'
+  styleUrl: './trainer-dashboard.css',
 })
 export class Dashboard implements OnInit {
-   taskView = 'assign';
+  taskView = 'assign';
   activeTab = 'batches';
 
   trainerName: string = '';
-  trainerId :string='';
+  trainerId: string = '';
   batches: Batch[] = [];
   trainer!: Trainer;
   pendingAttendance = 1;
   pendingTasks = 3;
   selectedBatch: string = '';
-  
 
-  constructor(private router: Router,
-    private apiService: ApiService,
-    
-  ) {}
+  constructor(private router: Router, private apiService: ApiService) {}
 
   ngOnInit(): void {
-  
     this.trainerName = localStorage.getItem('name') || '';
-    this.trainerId =localStorage.getItem('id') || '';
+    this.trainerId = localStorage.getItem('id') || '';
     this.loadTrainer();
     this.loadBatches();
   }
 
-  
-
   loadTrainer(): void {
-    if(this.trainerId) {
+    if (this.trainerId) {
       this.apiService.getTrainerById(this.trainerId).subscribe({
         next: (data: Trainer) => {
           this.trainer = data;
@@ -54,41 +45,43 @@ export class Dashboard implements OnInit {
         },
         error: (err) => {
           console.error('Error loading trainer:', err);
-        }
+        },
       });
     } else {
       console.warn('Trainer ID not found in localStorage.');
     }
   }
 
-
-loadBatches() {
-  this.apiService.getAllBatches().subscribe({
-    next: (data: Batch[]) => {
-      this.batches = data.filter(batch => batch.batchId === this.trainer.batchId);
-      console.log('Filtered Batches:', this.batches);
-    },
-    error: (err) => console.error('Error fetching batches:', err)
-  });
-}
-
-
-
-
-
+  loadBatches() {
+    this.apiService.getAllBatches().subscribe({
+      next: (data: Batch[]) => {
+        this.batches = data.filter((batch) => batch.batchId === this.trainer.batchId);
+        console.log('Filtered Batches:', this.batches);
+      },
+      error: (err) => console.error('Error fetching batches:', err),
+    });
+  }
 
   logout() {
-    console.log("Logout clicked");
-    localStorage.clear(); 
+    console.log('Logout clicked');
+    localStorage.clear();
     sessionStorage.clear();
     this.router.navigate(['/login']);
   }
 
-
-
-    toggleTaskView(view: string) {
+  toggleTaskView(view: string) {
     this.taskView = view;
   }
+
+exportAttendance() {
+  this.apiService.exportAttendanceReport().subscribe((blob) => {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'attendance_report.xlsx';
+    a.click();
+  });
+}
 
 
 }
